@@ -8,11 +8,20 @@
 using namespace std;
 
 // Define Class Board
-class board{
-    public:
-        board();
+class Board{
     private:
-        draw();
+        char mainBoard[boardSize][boardSize];
+
+    public:
+        // Constructor
+        Board();
+
+        // Accessors and Mutators
+        void setBoard(int row, int col, char player);
+        char getBoard(int row, int col);
+
+        // Utility Functions
+        void draw();
 };
 
 #endif

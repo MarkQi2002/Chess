@@ -4,11 +4,17 @@
 
 using namespace std;
 
+// Header Files
 #include "globals.h"
+#include "board.h"
 
 // The Main Function
 int main(){
-    cout << "Hello World" << endl;
+    // Variable Declaration
+    Board mainBoard;
+
+    // Draw the Board
+    mainBoard.draw();
     
     return 0;
 }
