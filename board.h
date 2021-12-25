@@ -3,7 +3,7 @@
 #define _board_h
 
 #include <iostream>
-#inlcude "globals.h"
+#include "globals.h"
 
 using namespace std;
 
