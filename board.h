@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "globals.h"
+#include "arbitrarypiece.h"
 
 using namespace std;
 
