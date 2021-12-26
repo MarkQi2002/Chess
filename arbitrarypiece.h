@@ -11,7 +11,7 @@ using namespace std;
 // Piece Class
 class Piece{
     private: 
-        char name; 
+        char name; // Do you think this should in the derived class or the base class?
         vector <int> position;
         bool onboard; 
         char color; 
