@@ -1,0 +1,26 @@
+#ifndef _arbitrarypiece_h
+#define _arbitrarypiece_h
+
+#include <iostream>
+#include <vector>
+
+using namespace std; 
+
+class Piece{
+    private: 
+        char name; 
+        vector <int> position;
+        bool onboard; 
+        char color; 
+
+    public: 
+        vector <int> getPosition(char n); 
+        void move(char n, vector <int> np); 
+        char getColor(char n);
+        void changeState(char n); // change the onboard boolean value
+         
+
+
+};
+
+#endif
