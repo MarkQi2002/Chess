@@ -15,6 +15,9 @@ class Bishop:public Piece{
         // Constructor
         Bishop(int xLoc, int yLoc, string newColor, char newType);
 
+        // Destructor
+        virtual ~Bishop();
+
         // Accessors and Mutators
         char getType();
         void setType(char newType);

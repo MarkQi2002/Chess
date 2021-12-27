@@ -15,6 +15,9 @@ class Knight:public Piece{
         // Constructor
         Knight(int xLoc, int yLoc, string newColor, char newType);
 
+        // Destructor
+        virtual ~Knight();
+
         // Accessors and Mutators
         char getType();
         void setType(char newType);

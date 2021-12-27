@@ -53,6 +53,17 @@ Board::Board(){
     mainBoard[7][7] = new Rook(7, 7, white, whiteRook);
 }
 
+// Destructor
+Board::~Board(){
+    for (int i = 0; i < 8; i++){
+        for (int j = 0 ; j < 8; j++){   
+            //mainBoard[i][j] is of type Piece*, so this line of code will call the destructor of class Piece by defualt
+            //unless we make all destructors virtual(dynamic binding) 
+            delete mainBoard[i][j];
+        }
+    }
+}
+
 // Accessors
 Piece* Board::getBoard(int row, int col){
     return mainBoard[row][col];

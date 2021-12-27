@@ -15,6 +15,9 @@ class King:public Piece{
         // Constructor
         King(int xLoc, int yLoc, string newColor, char newType);
 
+        // Destructor
+        virtual ~King();
+
         // Accessors and Mutators
         char getType();
         void setType(char newType);

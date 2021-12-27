@@ -15,6 +15,9 @@ class Pawn:public Piece{
         // Constructor
         Pawn(int xLoc, int yLoc, string newColor, char newType);
 
+        // Destructor
+        virtual ~Pawn();
+
         // Accessors and Mutators
         char getType();
         void setType(char newType);

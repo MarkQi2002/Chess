@@ -17,6 +17,9 @@ class Piece{
     public: 
         // Constructor
         Piece(int xLoc, int yLoc, string newColor);
+
+        // Destructor
+        virtual ~Piece();
         
         // Accessors and Mutators
         vector <int> getPosition(); 
@@ -26,7 +29,7 @@ class Piece{
 
         // Utility Function
         virtual void print();
-        virtual void printType();
+        virtual void printType() = 0; // make the whole class abstract, not necessary though.
 };
 
 #endif
