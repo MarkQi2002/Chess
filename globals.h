@@ -33,4 +33,11 @@
 // Board Related Declaration
 #define boardSize 8
 
+// Player Related Declaration
+#define Player 0
+#define AI1 1
+#define AI2 2
+#define AI3 3
+#define AI4 4
+
 #endif
