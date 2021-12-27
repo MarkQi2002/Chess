@@ -1,13 +1,14 @@
 // Include Modules
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 // Header Files
 #include "globals.h"
 #include "board.h"
-#include "arbitrarypiece.h"
+#include "piece.h"
 
 // The Main Function
 int main(){
