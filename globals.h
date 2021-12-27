@@ -3,7 +3,9 @@
 #define _globals_h
 
 // Include Modules
+#include <iostream>
 #include <string>
+#include <vector>
 
 // Variable Declaration
 // Check PDF Handout For More Information

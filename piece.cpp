@@ -9,11 +9,6 @@ Piece::Piece(int xLoc, int yLoc, string newColor){
     color = newColor;
 }
 
-// Mutators
-void Piece::move(vector <int> newPosition){
-    position = newPosition;
-}
-
 // Accessors
 vector <int> Piece::getPosition(){
     return position;
@@ -23,8 +18,13 @@ string Piece::getColor(){
     return color;
 }
 
+// Mutators
+void Piece::move(vector <int> newPosition){
+    position = newPosition;
+}
+
 // Utility Functions
-void Piece::draw(){
+void Piece::print(){
     cout << "Color: " << color << endl;
     cout << "Position: xLoc " << position[0] << " yLoc " << position[1] << endl;
 }

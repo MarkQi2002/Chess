@@ -3,9 +3,7 @@
 #define _piece_h
 
 // Include Modules
-#include <iostream>
-#include <string>
-#include <vector>
+#include "globals.h"
 
 using namespace std; 
 
@@ -21,12 +19,12 @@ class Piece{
         Piece(int xLoc, int yLoc, string newColor);
         
         // Accessors and Mutators
-        void move(vector <int> newPosition);
         vector <int> getPosition(); 
         string getColor();
+        void move(vector <int> newPosition);
 
         // Utility Function
-        void draw();
+        void print();
 };
 
 #endif

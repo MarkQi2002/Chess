@@ -44,14 +44,14 @@ Board::Board(){
     }
 }
 
-// Mutators
-void Board::setBoard(int row, int col, char player){
-    mainBoard[row][col] = player;
-}
-
 // Accessors
 char Board::getBoard(int row, int col){
     return mainBoard[row][col];
+}
+
+// Mutators
+void Board::setBoard(int row, int col, char player){
+    mainBoard[row][col] = player;
 }
 
 // Utility Functions
