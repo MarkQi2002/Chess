@@ -48,6 +48,9 @@ int main(){
 
     // Main Game Part
     while (!cin.eof() && !gameOver){
+        // Variable Declaration
+        bool moveValid = true;
+
         // New sstream for each input
         stringstream lineStream(line);
 
@@ -84,6 +87,44 @@ int main(){
             }
         }
 
+        // For Command "resign" (Easy)
+        if (command == "resign"){
+            if (currentPlayer == white){
+                cout << "\033[35mPlayer One (";
+                if (firstPlayer == Player) cout << "Human";
+                else if (firstPlayer == AI1) cout << "AI1";
+                else if (firstPlayer == AI2) cout << "AI2";
+                else if (firstPlayer == AI3) cout << "AI3";
+                else if (firstPlayer == AI4) cout << "AI4";
+                cout << ") Wins!\033[0m" << endl;
+            }
+
+            else if (currentPlayer == black){
+                cout << "\033[35mPlayer Two (";
+                if (secondPlayer == Player) cout << "Human";
+                else if (secondPlayer == AI1) cout << "AI1";
+                else if (secondPlayer == AI2) cout << "AI2";
+                else if (secondPlayer == AI3) cout << "AI3";
+                else if (secondPlayer == AI4) cout << "AI4";
+                cout << ") Wins!\033[0m" << endl;
+            }
+        }
+
+        // For Command "move" (Difficult)
+        if (command == "move"){
+
+        }
+
+        // For Command "setup" (Difficult)
+        if (command == "setup"){
+
+        }
+
+        // Switching Turns if Move is Valid
+        if (!gameOver && moveValid && command == "move"){
+            if (currentPlayer == white) currentPlayer = black;
+            else if (currentPlayer == black) currentPlayer = white;
+        }
 
         // Seek User Input Again
         // Prompt User For Input
