@@ -22,3 +22,7 @@ void Rook::print(){
     Piece::print();
     cout << "Type: " << type << endl;
 }
+
+void Rook::printType(){
+    cout << type;
+}

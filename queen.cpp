@@ -22,3 +22,7 @@ void Queen::print(){
     Piece::print();
     cout << "Type: " << type << endl;
 }
+
+void Queen::printType(){
+    cout << type;
+}

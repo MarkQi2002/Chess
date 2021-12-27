@@ -22,3 +22,7 @@ void Bishop::print(){
     Piece::print();
     cout << "Type: " << type << endl;
 }
+
+void Bishop::printType(){
+    cout << type;
+}

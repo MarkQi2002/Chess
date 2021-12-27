@@ -22,3 +22,7 @@ void Pawn::print(){
     Piece::print();
     cout << "Type: " << type << endl;
 }
+
+void Pawn::printType(){
+    cout << type;
+}

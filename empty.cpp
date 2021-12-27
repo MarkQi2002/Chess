@@ -22,3 +22,7 @@ void Empty::print(){
     Piece::print();
     cout << "Type: " << type << endl;
 }
+
+void Empty::printType(){
+    cout << type;
+}

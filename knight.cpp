@@ -22,3 +22,7 @@ void Knight::print(){
     Piece::print();
     cout << "Type: " << type << endl;
 }
+
+void Knight::printType(){
+    cout << type;
+}

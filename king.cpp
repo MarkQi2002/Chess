@@ -22,3 +22,7 @@ void King::print(){
     Piece::print();
     cout << "Type: " << type << endl;
 }
+
+void King::printType(){
+    cout << type;
+}

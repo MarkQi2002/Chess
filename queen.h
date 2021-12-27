@@ -21,6 +21,7 @@ class Queen:public Piece{
 
         // Utility Functions
         virtual void print();
+        void printType();
 };
 
 #endif

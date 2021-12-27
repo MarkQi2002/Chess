@@ -26,6 +26,7 @@ class Piece{
 
         // Utility Function
         virtual void print();
+        virtual void printType();
 };
 
 #endif

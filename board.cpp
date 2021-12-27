@@ -8,6 +8,7 @@
 #include "pawn.h"
 #include "queen.h"
 #include "rook.h"
+#include "empty.h"
 
 // Constructors
 Board::Board(){
@@ -30,7 +31,9 @@ Board::Board(){
     // Third, Fourth, Fifth, and Sixth Row
     for (int i = 2; i < 6; i++){
         for (int j = 0; j < boardSize; j++){
-            mainBoard[i][j] = new Piece(i, j, empty);
+            if (i % 2 == 0 && j % 2 == 1) mainBoard[i][j] = new Empty(i, j, empty, emptyTwo);
+            else if (i % 2 == 1 && j % 2 == 0) mainBoard[i][j] = new Empty(i, j, empty, emptyTwo);
+            else mainBoard[i][j] = new Empty(i, j, empty, emptyOne);
         }
     }
 
@@ -66,7 +69,7 @@ void Board::draw(){
     for (int i = 0; i < boardSize; i++){
         cout << (8 - i) << " ";
         for (int j = 0; j < boardSize; j++){
-            mainBoard[i][j] -> print();
+            mainBoard[i][j] -> printType();
         }
         cout << endl;
     }

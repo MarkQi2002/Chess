@@ -32,3 +32,7 @@ void Piece::print(){
     cout << "Color: " << color << endl;
     cout << "Position: xLoc " << position[0] << " yLoc " << position[1] << endl;
 }
+
+void Piece::printType(){
+
+}
