@@ -2,56 +2,62 @@
 #include "globals.h"
 #include "board.h"
 #include "piece.h"
+#include "bishop.h"
+#include "king.h"
+#include "knight.h"
+#include "pawn.h"
+#include "queen.h"
+#include "rook.h"
 
 // Constructors
 Board::Board(){
     // According to Handout
     // First Row
-    for (int i = 0; i < boardSize; i++){
-        if (i % 7 == 0) mainBoard[0][i] = blackRook;
-        else if (i % 5 == 1) mainBoard[0][i] = blackKnight;
-        else if (i % 3 == 2) mainBoard[0][i] = blackBishop;
-        else if (i == 3) mainBoard[0][i] = blackQueen;
-        else if (i == 4) mainBoard[0][i] = blackKing;
-    }
+    mainBoard[0][0] = new Rook(0, 0, black, blackRook);
+    mainBoard[0][1] = new Knight(0, 1, black, blackKnight);
+    mainBoard[0][2] = new Bishop(0, 2, black, blackBishop);
+    mainBoard[0][3] = new Queen(0, 3, black, blackQueen);
+    mainBoard[0][4] = new King(0, 4, black, blackKing);
+    mainBoard[0][5] = new Bishop(0, 5, black, blackBishop);
+    mainBoard[0][6] = new Knight(0, 6, black, blackKnight);
+    mainBoard[0][7] = new Rook(0, 7, black, blackRook);
 
     // Second Row
     for (int i = 0; i < boardSize; i++){
-        mainBoard[1][i] = blackPawn;
+        mainBoard[1][i] = new Pawn(1, i, black, blackPawn);
     }
 
     // Third, Fourth, Fifth, and Sixth Row
     for (int i = 2; i < 6; i++){
         for (int j = 0; j < boardSize; j++){
-            if (i % 2 == 0 && j % 2 == 1) mainBoard[i][j] = '_';
-            else if (i % 2 == 1 && j % 2 == 0) mainBoard[i][j] = '_';
-            else mainBoard[i][j] = ' ';
+            mainBoard[i][j] = new Piece(i, j, empty);
         }
     }
 
     // Seventh Row
     for (int i = 0; i < boardSize; i++){
-        mainBoard[6][i] = whitePawn;
+        mainBoard[6][i] = new Pawn(6, i, white, whitePawn);
     }
 
     // Eighth Row
-    for (int i = 0; i < boardSize; i++){
-        if (i % 7 == 0) mainBoard[7][i] = whiteRook;
-        else if (i % 5 == 1) mainBoard[7][i] = whiteKnight;
-        else if (i % 3 == 2) mainBoard[7][i] = whiteBishop;
-        else if (i == 3) mainBoard[7][i] = whiteQueen;
-        else if (i == 4) mainBoard[7][i] = whiteKing;
-    }
+    mainBoard[7][0] = new Rook(7, 0, white, whiteRook);
+    mainBoard[7][1] = new Knight(7, 1, white, whiteKnight);
+    mainBoard[7][2] = new Bishop(7, 2, white, whiteBishop);
+    mainBoard[7][3] = new Queen(7, 3, white, whiteQueen);
+    mainBoard[7][4] = new King(7, 4, white, whiteKing);
+    mainBoard[7][5] = new Bishop(7, 5, white, whiteBishop);
+    mainBoard[7][6] = new Knight(7, 6, white, whiteKnight);
+    mainBoard[7][7] = new Rook(7, 7, white, whiteRook);
 }
 
 // Accessors
-char Board::getBoard(int row, int col){
+Piece* Board::getBoard(int row, int col){
     return mainBoard[row][col];
 }
 
 // Mutators
-void Board::setBoard(int row, int col, char player){
-    mainBoard[row][col] = player;
+void Board::setBoard(int row, int col, Piece* newPiece){
+    mainBoard[row][col] = newPiece;
 }
 
 // Utility Functions
@@ -60,7 +66,7 @@ void Board::draw(){
     for (int i = 0; i < boardSize; i++){
         cout << (8 - i) << " ";
         for (int j = 0; j < boardSize; j++){
-            cout << mainBoard[i][j];
+            mainBoard[i][j] -> print();
         }
         cout << endl;
     }

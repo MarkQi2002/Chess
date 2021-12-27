@@ -17,8 +17,8 @@ class Board{
         Board();
 
         // Accessors and Mutators
-        char getBoard(int row, int col);
-        void setBoard(int row, int col, char player);
+        Piece* getBoard(int row, int col);
+        void setBoard(int row, int col, Piece* newPiece);
 
         // Utility Functions
         void draw();

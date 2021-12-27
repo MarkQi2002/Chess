@@ -22,9 +22,10 @@ class Piece{
         vector <int> getPosition(); 
         string getColor();
         void move(vector <int> newPosition);
+        void setColor(string newColor);
 
         // Utility Function
-        void print();
+        virtual void print();
 };
 
 #endif

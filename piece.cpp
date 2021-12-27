@@ -23,6 +23,10 @@ void Piece::move(vector <int> newPosition){
     position = newPosition;
 }
 
+void Piece::setColor(string newColor){
+    color = newColor;
+}
+
 // Utility Functions
 void Piece::print(){
     cout << "Color: " << color << endl;
