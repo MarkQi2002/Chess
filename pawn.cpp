@@ -5,6 +5,7 @@
 // Constructor
 Pawn::Pawn(int xLoc, int yLoc, string newColor, char newType):Piece(xLoc, yLoc, newColor){
     type = newType;
+    firstMove = true;
 }
 
 // Accessor
@@ -12,7 +13,15 @@ char Pawn::getType(){
     return type;
 }
 
+bool Pawn::getFirstMove(){
+    return firstMove;
+}
+
 // Mutator
+void Pawn::setFirstMove(bool newFirstMove){
+    firstMove = newFirstMove;
+}
+
 void Pawn::setType(char newType){
     type = newType;
 }

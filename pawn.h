@@ -11,6 +11,8 @@ class Pawn:public Piece{
     private:
         // Variable Declaration
         char type;
+        bool firstMove;
+
     public:
         // Constructor
         Pawn(int xLoc, int yLoc, string newColor, char newType);
@@ -20,6 +22,8 @@ class Pawn:public Piece{
 
         // Accessors and Mutators
         char getType();
+        bool getFirstMove();
+        void setFirstMove(bool newFirstMove);
         void setType(char newType);
 
         // Utility Functions
