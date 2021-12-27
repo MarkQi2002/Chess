@@ -7,6 +7,11 @@ Rook::Rook(int xLoc, int yLoc, string newColor, char newType):Piece(xLoc, yLoc, 
     type = newType;
 }
 
+// Destructor
+Rook::~Rook(){
+
+}
+
 // Accessor
 char Rook::getType(){
     return type;

@@ -7,6 +7,11 @@ Bishop::Bishop(int xLoc, int yLoc, string newColor, char newType):Piece(xLoc, yL
     type = newType;
 }
 
+// Destructor
+Bishop::~Bishop(){
+
+}
+
 // Accessor
 char Bishop::getType(){
     return type;

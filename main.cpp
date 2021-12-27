@@ -84,6 +84,12 @@ int main(){
             }
         }
 
+
+        // Seek User Input Again
+        // Prompt User For Input
+        cout << "\033[33mRead PDF for input instructions\033[0m" << endl;
+        cout << "> ";
+        getline(cin, line);
     }
 
     // Draw the Board

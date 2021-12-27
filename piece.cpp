@@ -9,6 +9,11 @@ Piece::Piece(int xLoc, int yLoc, string newColor){
     color = newColor;
 }
 
+// Destructor
+Piece::~Piece(){
+
+}
+
 // Accessors
 vector <int> Piece::getPosition(){
     return position;
@@ -34,5 +39,5 @@ void Piece::print(){
 }
 
 void Piece::printType(){
-
+    return;
 }

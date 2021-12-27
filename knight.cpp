@@ -7,6 +7,11 @@ Knight::Knight(int xLoc, int yLoc, string newColor, char newType):Piece(xLoc, yL
     type = newType;
 }
 
+// Destructor
+Knight::~Knight(){
+
+}
+
 // Accessor
 char Knight::getType(){
     return type;

@@ -8,6 +8,11 @@ Pawn::Pawn(int xLoc, int yLoc, string newColor, char newType):Piece(xLoc, yLoc, 
     firstMove = true;
 }
 
+// Destructor
+Pawn::~Pawn(){
+
+}
+
 // Accessor
 char Pawn::getType(){
     return type;

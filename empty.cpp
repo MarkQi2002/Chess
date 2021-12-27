@@ -7,6 +7,11 @@ Empty::Empty(int xLoc, int yLoc, string newColor, char newType):Piece(xLoc, yLoc
     type = newType;
 }
 
+// Destructor
+Empty::~Empty(){
+
+}
+
 // Accessor
 char Empty::getType(){
     return type;

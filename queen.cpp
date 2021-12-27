@@ -8,6 +8,11 @@ Queen::Queen(int xLoc, int yLoc, string newColor, char newType):Piece(xLoc, yLoc
     castling = true;
 }
 
+// Destructor
+Queen::~Queen(){
+    
+}
+
 // Accessor
 char Queen::getType(){
     return type;

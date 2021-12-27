@@ -8,6 +8,11 @@ King::King(int xLoc, int yLoc, string newColor, char newType):Piece(xLoc, yLoc, 
     castling = true;
 }
 
+// Destructor
+King::~King(){
+
+}
+
 // Accessor
 char King::getType(){
     return type;

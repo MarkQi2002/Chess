@@ -29,7 +29,7 @@ class Piece{
 
         // Utility Function
         virtual void print();
-        virtual void printType() = 0; // make the whole class abstract, not necessary though.
+        virtual void printType(); // make the whole class abstract, not necessary though.
 };
 
 #endif
