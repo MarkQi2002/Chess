@@ -11,6 +11,8 @@
 // Check PDF Handout For More Information
 // Pieces, Black (Lower Case Letters), White (Capital Letters)
 #define empty "Empty"
+#define emptyOne ' '
+#define emptyTwo '_'
 
 #define white "White"
 #define whiteKing 'K'
