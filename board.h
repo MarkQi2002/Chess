@@ -4,14 +4,14 @@
 
 #include <iostream>
 #include "globals.h"
-#include "arbitrarypiece.h"
+#include "piece.h"
 
 using namespace std;
 
 // Define Class Board
 class Board{
     private:
-        char mainBoard[boardSize][boardSize];
+        Piece* mainBoard[boardSize][boardSize];
 
     public:
         // Constructor

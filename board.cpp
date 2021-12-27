@@ -1,7 +1,7 @@
 // Include Modules
 #include "globals.h"
 #include "board.h"
-#include "arbitrarypiece.h"
+#include "piece.h"
 
 // Constructors
 Board::Board(){
