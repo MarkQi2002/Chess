@@ -16,6 +16,9 @@ class Board{
         // Constructor
         Board();
 
+        // Destructor
+        ~Board();
+
         // Accessors and Mutators
         Piece* getBoard(int row, int col);
         void setBoard(int row, int col, Piece* newPiece);

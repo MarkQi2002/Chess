@@ -15,6 +15,9 @@ class Empty:public Piece{
         // Constructor
         Empty(int xLoc, int yLoc, string newColor, char newType);
 
+        // Destructor
+        virtual ~Empty();
+
         // Accessors and Mutators
         char getType();
         void setType(char newType);

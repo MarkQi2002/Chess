@@ -15,6 +15,9 @@ class Queen:public Piece{
         // Constructor
         Queen(int xLoc, int yLoc, string newColor, char newType);
 
+        // Destructor
+        virtual ~Queen();
+
         // Accessors and Mutators
         char getType();
         void setType(char newType);

@@ -15,6 +15,9 @@ class Rook:public Piece{
         // Constructor
         Rook(int xLoc, int yLoc, string newColor, char newType);
 
+        // Destructor
+        virtual ~Rook();
+
         // Accessors and Mutators
         char getType();
         void setType(char newType);
