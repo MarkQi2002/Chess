@@ -112,6 +112,24 @@ int main(){
 
         // For Command "move" (Difficult)
         if (command == "move"){
+            // Controlling Input
+            string originalPosition;
+            string nextPosition;
+            string temp;
+            bool validInput = true;
+            bool extraInput = false;
+            
+            // Getting Input From stringstream
+            lineStream >> originalPosition >> nextPosition >> temp;
+
+            // Verify Input
+            if (temp != "") extraInput = true;
+            if (originalPosition.size() != 2) validInput = false;
+            if (nextPosition.size() != 2) validInput = false;
+
+            // Invalid Input
+            if (!validInput) cout << "\033[31mInvalid Position\033[0m" << endl;
+            if (extraInput) cout << "\033[31mToo Many Arguments\033[0m" << endl;
 
         }
 
