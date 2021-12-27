@@ -11,6 +11,7 @@ class Empty:public Piece{
     private:
         // Variable Declaration
         char type;
+        
     public:
         // Constructor
         Empty(int xLoc, int yLoc, string newColor, char newType);

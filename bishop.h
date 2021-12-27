@@ -11,6 +11,7 @@ class Bishop:public Piece{
     private:
         // Variable Declaration
         char type;
+        
     public:
         // Constructor
         Bishop(int xLoc, int yLoc, string newColor, char newType);

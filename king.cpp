@@ -5,6 +5,7 @@
 // Constructor
 King::King(int xLoc, int yLoc, string newColor, char newType):Piece(xLoc, yLoc, newColor){
     type = newType;
+    castling = true;
 }
 
 // Accessor
@@ -12,7 +13,15 @@ char King::getType(){
     return type;
 }
 
+bool King::getCastling(){
+    return castling;
+}
+
 // Mutator
+void King::setCastling(bool newCastling){
+    castling = newCastling;
+}
+
 void King::setType(char newType){
     type = newType;
 }

@@ -11,6 +11,7 @@ class Rook:public Piece{
     private:
         // Variable Declaration
         char type;
+        
     public:
         // Constructor
         Rook(int xLoc, int yLoc, string newColor, char newType);

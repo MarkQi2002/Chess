@@ -10,6 +10,7 @@ using namespace std;
 // Define Class Board
 class Board{
     private:
+        // Variable Declaration
         Piece* mainBoard[boardSize][boardSize];
 
     public:

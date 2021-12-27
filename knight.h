@@ -11,6 +11,7 @@ class Knight:public Piece{
     private:
         // Variable Declaration
         char type;
+        
     public:
         // Constructor
         Knight(int xLoc, int yLoc, string newColor, char newType);

@@ -11,6 +11,8 @@ class King:public Piece{
     private:
         // Variable Declaration
         char type;
+        bool castling;
+
     public:
         // Constructor
         King(int xLoc, int yLoc, string newColor, char newType);
@@ -20,6 +22,8 @@ class King:public Piece{
 
         // Accessors and Mutators
         char getType();
+        bool getCastling();
+        void setCastling(bool newCastling);
         void setType(char newType);
 
         // Utility Functions
