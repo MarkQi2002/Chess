@@ -31,7 +31,8 @@ int main(){
     Board mainBoard;
     string currentPlayer = white;
     bool gameOver = false;
-    bool startGame = true;  // This Indicated The Beginning of the Game (True)
+    bool startGame = true;  // This Indicated The Beginning of the Game (Default: True)
+    bool setUpMode = false; // This Indicated Set Up Mode (Default: Flase)
 
     // For Assigning Players
     int firstPlayer = -1;
@@ -64,10 +65,10 @@ int main(){
         }
 
         // Game Started and Command is "game"
-        if (command == "game" && !startGame) cout << "\033[31mGame Already Started\033[0m" << endl;
+        if (command == "game" && !startGame && !setUpMode) cout << "\033[31mGame Already Started\033[0m" << endl;
         
         // Game Not Started and Command is "game"
-        if (command == "game" && startGame){
+        if (command == "game" && startGame && !setUpMode){
             // Set Players 1 (FirstHand)
             while (firstPlayer == -1){
                 string playerSelectOne;
@@ -85,10 +86,15 @@ int main(){
                 if (playerSelectTwo != "0" && playerSelectTwo != "1" && playerSelectTwo != "2" && playerSelectTwo != "3" && playerSelectTwo != "4") cout << "\033[31mInvalid Input\033[0m" << endl;
                 else secondPlayer = stoi(playerSelectTwo);
             }
+
+            startGame = false;
         }
+        
+        // Game Not Started and Command is not "game"
+        if (command != "game" && startGame && !setUpMode) cout << "\033[31mGame Not Started\033[0m" << endl;
 
         // For Command "resign" (Easy)
-        if (command == "resign"){
+        if (command == "resign" && !startGame && !setUpMode){
             if (currentPlayer == white){
                 cout << "\033[35mPlayer One (";
                 if (firstPlayer == Player) cout << "Human";
@@ -111,7 +117,7 @@ int main(){
         }
 
         // For Command "move" (Difficult)
-        if (command == "move"){
+        if (command == "move" && !startGame && !setUpMode){
             // Controlling Input
             string originalPosition;
             string nextPosition;
@@ -185,12 +191,13 @@ int main(){
         }
 
         // For Command "setup" (Difficult)
-        if (command == "setup"){
-
+        if (command == "setup" && !startGame && !setUpMode){
+            // Enable SetUp Mode
+            setUpMode = true;
         }
 
         // Switching Turns if Move is Valid
-        if (!gameOver && moveValid && command == "move"){
+        if (!gameOver && moveValid && command == "move" && !startGame){
             if (currentPlayer == white) currentPlayer = black;
             else if (currentPlayer == black) currentPlayer = white;
         }
