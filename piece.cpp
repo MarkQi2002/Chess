@@ -23,8 +23,12 @@ string Piece::getColor(){
     return color;
 }
 
-void Piece::checkType(){
-    
+bool Piece::getFirstMove(){
+    return false; // THIS COULD BE WRONG
+}
+
+char Piece::getType(){
+    return emptyOne; // THIS COULD BE WRONG
 }
 
 // Mutators
@@ -34,6 +38,18 @@ void Piece::move(vector <int> newPosition){
 
 void Piece::setColor(string newColor){
     color = newColor;
+}
+
+void Piece::setFirstMove(bool newFirstMove){
+
+}
+
+void Piece::setType(char newType){
+
+}
+
+void Piece::checkType(){
+    
 }
 
 // Utility Functions

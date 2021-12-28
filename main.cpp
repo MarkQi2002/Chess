@@ -44,6 +44,7 @@ int main(){
 
     // Prompt User For Input
     cout << "\033[33mRead PDF for input instructions\033[0m" << endl;
+    cout << "\033[36mCurrent Player: " << currentPlayer << "\033[0m" << endl;
     cout << "> ";
     getline(cin, line);
 
@@ -190,7 +191,28 @@ int main(){
             next.push_back(nextyLoc);
 
             // ExchangePosition
-            mainBoard.exchangePosition(original, next);
+            // mainBoard.exchangePosition(original, next);
+
+            // For White
+            if (currentPlayer == white){
+                // For Moving Pawns
+                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whitePawn){
+                    if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
+                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == true && (nextxLoc == 5 || nextxLoc == 4)) mainBoard.exchangePosition(original, next);
+                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == false && nextxLoc == originalxLoc - 1) mainBoard.exchangePosition(original, next);
+                    else {moveValid = false; cout << "\033[31mInvalid Move\033[0m" << endl;}
+                }
+            }
+            // For Black
+            else if (currentPlayer == black){
+                // For Moving Pawns
+                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackPawn){
+                    if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
+                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == true && (nextxLoc == 2 || nextxLoc == 3)) mainBoard.exchangePosition(original, next);
+                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == false && nextxLoc == originalxLoc + 1) mainBoard.exchangePosition(original, next);
+                    else {moveValid = false; cout << "\033[31mInvalid Move\033[0m" << endl;}
+                }
+            }
         }
 
         // For Command "setup" (Difficult)
@@ -211,6 +233,7 @@ int main(){
         // Seek User Input Again
         // Prompt User For Input
         cout << "\033[33mRead PDF for input instructions\033[0m" << endl;
+        cout << "\033[36mCurrent Player: " << currentPlayer << "\033[0m" << endl;
         cout << "> ";
         getline(cin, line);
     }

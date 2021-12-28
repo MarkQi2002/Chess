@@ -24,8 +24,12 @@ class Piece{
         // Accessors and Mutators
         vector <int> getPosition(); 
         string getColor();
+        virtual bool getFirstMove();
+        virtual char getType();
         void move(vector <int> newPosition);
         void setColor(string newColor);
+        virtual void setFirstMove(bool newFirstMove);
+        virtual void setType(char newType);
         virtual void checkType(); // For Empty Class
 
         // Utility Function
