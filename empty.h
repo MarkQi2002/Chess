@@ -22,6 +22,7 @@ class Empty:public Piece{
         // Accessors and Mutators
         char getType();
         void setType(char newType);
+        void checkType();
 
         // Utility Functions
         virtual void print();

@@ -93,10 +93,15 @@ void Board::exchangePosition(vector <int> original, vector <int> next){
     // Change Piece Location
     mainBoard[original[0]][original[1]] -> move(next);
     mainBoard[next[0]][next[1]] -> move(original);
+    
 
     // Swap Them
     Piece* temp;
     temp = mainBoard[original[0]][original[1]];
     mainBoard[original[0]][original[1]] = mainBoard[next[0]][next[1]];
     mainBoard[next[0]][next[1]] = temp;
+
+    // For Empty Type
+    if (mainBoard[original[0]][original[1]] -> getColor() == empty) mainBoard[original[0]][original[1]] -> checkType();
+    if (mainBoard[next[0]][next[1]] -> getColor() == empty) mainBoard[original[0]][original[1]] -> checkType();
 }

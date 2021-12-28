@@ -22,6 +22,12 @@ void Empty::setType(char newType){
     type = newType;
 }
 
+void Empty::checkType(){
+    if (getPosition()[0] % 2 == 0 && getPosition()[1] % 2 == 1) setType(emptyTwo);
+    else if (getPosition()[0] % 2 == 1 && getPosition()[1] % 2 == 0) setType(emptyTwo);
+    else setType(emptyOne);
+}
+
 // Utility Functions
 void Empty::print(){
     Piece::print();

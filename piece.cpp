@@ -23,6 +23,10 @@ string Piece::getColor(){
     return color;
 }
 
+void Piece::checkType(){
+    
+}
+
 // Mutators
 void Piece::move(vector <int> newPosition){
     position = newPosition;

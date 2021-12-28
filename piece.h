@@ -26,6 +26,7 @@ class Piece{
         string getColor();
         void move(vector <int> newPosition);
         void setColor(string newColor);
+        virtual void checkType(); // For Empty Class
 
         // Utility Function
         virtual void print();
