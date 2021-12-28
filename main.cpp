@@ -118,6 +118,14 @@ int main(){
             string temp;
             bool validInput = true;
             bool extraInput = false;
+
+            // Variable Declaration
+            int originalxLoc;   // Row Number
+            int originalyLoc;   // Column Number
+            int nextxLoc;
+            int nextyLoc;
+            vector <int> original;
+            vector <int> next;
             
             // Getting Input From stringstream
             lineStream >> originalPosition >> nextPosition >> temp;
@@ -131,6 +139,49 @@ int main(){
             if (!validInput) cout << "\033[31mInvalid Position\033[0m" << endl;
             if (extraInput) cout << "\033[31mToo Many Arguments\033[0m" << endl;
 
+            // For Extracting Valid Input
+            if (validInput){
+                // Original Position
+                if (originalPosition[0] == 'a') originalyLoc = 0;
+                else if (originalPosition[0] == 'b') originalyLoc = 1;
+                else if (originalPosition[0] == 'c') originalyLoc = 2;
+                else if (originalPosition[0] == 'd') originalyLoc = 3;
+                else if (originalPosition[0] == 'e') originalyLoc = 4;
+                else if (originalPosition[0] == 'f') originalyLoc = 5;
+                else if (originalPosition[0] == 'g') originalyLoc = 6;
+                else if (originalPosition[0] == 'h') originalyLoc = 7;
+
+                originalxLoc = 8 - (originalPosition[1] - '0'); // Row Number
+
+                // Next Position
+                if (nextPosition[0] == 'a') nextyLoc = 0;
+                else if (nextPosition[0] == 'b') nextyLoc = 1;
+                else if (nextPosition[0] == 'c') nextyLoc = 2;
+                else if (nextPosition[0] == 'd') nextyLoc = 3;
+                else if (nextPosition[0] == 'e') nextyLoc = 4;
+                else if (nextPosition[0] == 'f') nextyLoc = 5;
+                else if (nextPosition[0] == 'g') nextyLoc = 6;
+                else if (nextPosition[0] == 'h') nextyLoc = 7;
+
+                nextxLoc = 8 - (nextPosition[1] - '0'); // Row Number
+
+                // Testing Use
+                /*
+                cout << "Original Row Number:" << originalxLoc << endl;
+                cout << "Original Column Number: " << originalyLoc << endl;
+                cout << "Next Row Number: " << nextxLoc << endl;
+                cout << "Next Column Number: " << nextyLoc << endl;
+                */
+            }
+
+            // Check If Original Location if Empty or Not
+            if (validInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getColor() == empty) {validInput = false; cout << "\033[31mLocation Empty\033[0m" << endl;}
+
+            // Setting Variables
+            original.push_back(originalxLoc);
+            original.push_back(originalyLoc);
+            next.push_back(nextxLoc);
+            next.push_back(nextyLoc);
         }
 
         // For Command "setup" (Difficult)
@@ -143,6 +194,9 @@ int main(){
             if (currentPlayer == white) currentPlayer = black;
             else if (currentPlayer == black) currentPlayer = white;
         }
+
+        // Draw the Board
+        mainBoard.draw();
 
         // Seek User Input Again
         // Prompt User For Input
