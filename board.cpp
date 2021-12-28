@@ -87,3 +87,16 @@ void Board::draw(){
 
     cout << "  abcdefgh" << endl;
 }
+
+// Basic Swap Location
+void Board::exchangePosition(vector <int> original, vector <int> next){
+    // Change Piece Location
+    mainBoard[original[0]][original[1]] -> move(next);
+    mainBoard[next[0]][next[1]] -> move(original);
+
+    // Swap Them
+    Piece* temp;
+    temp = mainBoard[original[0]][original[1]];
+    mainBoard[original[0]][original[1]] = mainBoard[next[0]][next[1]];
+    mainBoard[next[0]][next[1]] = temp;
+}

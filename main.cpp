@@ -188,6 +188,9 @@ int main(){
             original.push_back(originalyLoc);
             next.push_back(nextxLoc);
             next.push_back(nextyLoc);
+
+            // ExchangePosition
+            mainBoard.exchangePosition(original, next);
         }
 
         // For Command "setup" (Difficult)
