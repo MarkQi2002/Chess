@@ -180,6 +180,8 @@ int main(){
                 cout << "Next Column Number: " << nextyLoc << endl;
                 */
             }
+            // Check On Board or Not
+            if (originalxLoc < 0 || originalxLoc > 7 || originalyLoc < 0 || originalyLoc > 7 || nextxLoc < 0 || nextxLoc > 7 || nextyLoc < 0 || nextyLoc > 7) {validInput = false; cout << "\033[31mLocation Outside Board\033[0m" << endl;}
 
             // Check If Original Location if Empty or Not
             if (validInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getColor() == empty) {validInput = false; cout << "\033[31mLocation Empty\033[0m" << endl;}
@@ -194,7 +196,7 @@ int main(){
             // mainBoard.exchangePosition(original, next);
 
             // For White
-            if (currentPlayer == white){
+            if (currentPlayer == white && validInput){
                 // For Moving Pawns
                 if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whitePawn){
                     if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
@@ -204,7 +206,7 @@ int main(){
                 }
             }
             // For Black
-            else if (currentPlayer == black){
+            else if (currentPlayer == black && validInput){
                 // For Moving Pawns
                 if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackPawn){
                     if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
