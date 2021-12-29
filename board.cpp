@@ -105,3 +105,8 @@ void Board::exchangePosition(vector <int> original, vector <int> next){
     if (mainBoard[original[0]][original[1]] -> getColor() == empty) mainBoard[original[0]][original[1]] -> checkType();
     if (mainBoard[next[0]][next[1]] -> getColor() == empty) mainBoard[original[0]][original[1]] -> checkType();
 }
+
+// Conquer Other Pieces
+void Board::conquerMove(vector <int> original, vector <int> next){
+    
+}

@@ -27,6 +27,7 @@ class Board{
         // Utility Functions
         void draw();
         void exchangePosition(vector <int> original, vector <int> next);
+        void conquerMove(vector <int> original, vector <int> next);
 };
 
 #endif
