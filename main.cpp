@@ -184,7 +184,7 @@ int main(){
             if (originalxLoc < 0 || originalxLoc > 7 || originalyLoc < 0 || originalyLoc > 7 || nextxLoc < 0 || nextxLoc > 7 || nextyLoc < 0 || nextyLoc > 7) {moveValid = false; cout << "\033[31mLocation Outside Board\033[0m" << endl;}
 
             // Check If Original Location if Empty or Not
-            if (validInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getColor() == empty) {moveValid = false; cout << "\033[31mLocation Empty\033[0m" << endl;}
+            if (validInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getColor() == empty) {moveValid = false; cout << "\033[31mOriginal Location Empty\033[0m" << endl;}
 
             // Setting Variables
             original.push_back(originalxLoc);
@@ -213,6 +213,30 @@ int main(){
                     else if ((nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.exchangePosition(original, next);
                     else {moveValid = false; cout << "\033[31mInvalid Move\033[0m" << endl;}
                 }
+
+                // For Moving Rook
+                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteRook){
+                    bool blocked = false;
+                    if (originalxLoc != nextxLoc && originalyLoc != nextyLoc) {moveValid = false; cout << "\033[31mNot Horizontal Or Vertical\033[0m" << endl;}
+                    else if (originalxLoc == nextxLoc){
+                        for (int i = 1; i < abs(nextyLoc - originalyLoc); i++){
+                            if (nextyLoc > originalyLoc && mainBoard.getBoard(originalxLoc, originalyLoc + i) -> getColor() != empty) blocked = true;
+                            else if (nextyLoc < originalyLoc && mainBoard.getBoard(originalxLoc, originalyLoc - i) -> getColor() != empty) blocked = true;
+                        }
+                    }
+
+                    else if (originalyLoc == nextyLoc){
+                        for (int i = 1; i < abs(nextxLoc - originalxLoc); i++){
+                            if (nextxLoc > originalxLoc && mainBoard.getBoard(originalxLoc + i, originalyLoc) -> getColor() != empty) blocked = true;
+                            else if (nextxLoc < originalxLoc && mainBoard.getBoard(originalxLoc - i, originalyLoc) -> getColor() != empty) blocked = true;
+                        }
+                    }
+                    
+                    if (blocked == true) {moveValid = false; cout << "\033[31mThe Path is Blocked\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) mainBoard.conquerMove(original, next);
+                    else mainBoard.exchangePosition(original, next);
+                }
             }
             // For Black
             else if (currentPlayer == black && validInput){
@@ -231,6 +255,30 @@ int main(){
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white && (nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.conquerMove(original, next);
                     else if ((nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.exchangePosition(original, next);
                     else {moveValid = false; cout << "\033[31mInvalid Move\033[0m" << endl;}
+                }
+
+                // For Moving Rook
+                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackRook){
+                    bool blocked = false;
+                    if (originalxLoc != nextxLoc && originalyLoc != nextyLoc) {moveValid = false; cout << "\033[31mNot Horizontal Or Vertical\033[0m" << endl;}
+                    else if (originalxLoc == nextxLoc){
+                        for (int i = 1; i < abs(nextyLoc - originalyLoc); i++){
+                            if (nextyLoc > originalyLoc && mainBoard.getBoard(originalxLoc, originalyLoc + i) -> getColor() != empty) blocked = true;
+                            else if (nextyLoc < originalyLoc && mainBoard.getBoard(originalxLoc, originalyLoc - i) -> getColor() != empty) blocked = true;
+                        }
+                    }
+
+                    else if (originalyLoc == nextyLoc){
+                        for (int i = 1; i < abs(nextxLoc - originalxLoc); i++){
+                            if (nextxLoc > originalxLoc && mainBoard.getBoard(originalxLoc + i, originalyLoc) -> getColor() != empty) blocked = true;
+                            else if (nextxLoc < originalxLoc && mainBoard.getBoard(originalxLoc - i, originalyLoc) -> getColor() != empty) blocked = true;
+                        }
+                    }
+                    
+                    if (blocked == true) {moveValid = false; cout << "\033[31mThe Path is Blocked\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) mainBoard.conquerMove(original, next);
+                    else mainBoard.exchangePosition(original, next);
                 }
             }
         }

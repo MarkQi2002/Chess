@@ -1,0 +1,7 @@
+game
+0
+0
+move a2 a4
+move a7 a5
+move a1 a3
+move a8 a6
