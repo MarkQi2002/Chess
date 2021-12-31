@@ -1,12 +1,8 @@
 game
 0
 0
-move a1 b5
-move c1 c3
-move c1 b2
-move c1 a3
-move b2 b4
-move b7 b5
-move c1 a3
-move c8 a6
+move d2 d4
+move d7 d5
+move d1 d3
+move d8 d6
 eof
