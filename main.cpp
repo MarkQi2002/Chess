@@ -36,7 +36,6 @@ int main(){
 
     for (int i = 0; i < 2048; i++){
         getline(input, input_input[i]);
-        cout << input_input[i];
     }
 
     // Variable Declaration
@@ -66,7 +65,7 @@ int main(){
     while (!cin.eof() && !gameOver && input_input[count] != "eof"){
         // TESTING USE ONLY
         stringstream lineStream(input_input[count]);
-        cout << input_input[count];
+        cout << "\033[36m> " << input_input[count] << "\033[0m" << endl;
         count++;
 
 
@@ -258,11 +257,34 @@ int main(){
                         }
                     }
                     
-                    if (blocked == true) {moveValid = false; cout << "\033[31mThe Path is Blocked\033[0m" << endl;}
+                    if (!moveValid) {}
+                    else if (blocked == true) {moveValid = false; cout << "\033[31mThe Path is Blocked\033[0m" << endl;}
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) mainBoard.conquerMove(original, next);
                     else mainBoard.exchangePosition(original, next);
                 }
+
+                // For Moving Bishop
+                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteBishop){
+                    bool blocked = false;
+                    if (abs(nextxLoc - originalxLoc) != abs(nextyLoc - originalyLoc) || abs(nextxLoc - originalxLoc) == 0) {moveValid = false; cout << "\033[31mNot Diagonal Move or Same Position\033[0m" << endl;}
+                    else {
+                        for (int i = 1; i < abs(nextxLoc - originalxLoc); i++){
+                            if (nextxLoc > originalxLoc && nextyLoc > originalyLoc && mainBoard.getBoard(originalxLoc + i, originalyLoc + i) -> getColor() != empty) blocked = true;
+                            else if (nextxLoc > originalxLoc && nextyLoc < originalyLoc && mainBoard.getBoard(originalxLoc + i, originalyLoc - i) -> getColor() != empty) blocked = true;
+                            else if (nextxLoc < originalxLoc && nextyLoc > originalyLoc && mainBoard.getBoard(originalxLoc - i, originalyLoc + i) -> getColor() != empty) blocked = true;
+                            else if (nextxLoc < originalxLoc && nextyLoc < originalyLoc && mainBoard.getBoard(originalxLoc - i, originalyLoc - i) -> getColor() != empty) blocked = true;
+                        }
+                    }
+
+                    if (!moveValid) {}
+                    else if (blocked == true) {moveValid = false; cout << "\033[31mThe Path is Blocked\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) mainBoard.conquerMove(original, next);
+                    else mainBoard.exchangePosition(original, next);
+                }
+
+                // For Moving Queen
             }
             // For Black
             else if (currentPlayer == black && validInput){
@@ -301,11 +323,34 @@ int main(){
                         }
                     }
                     
-                    if (blocked == true) {moveValid = false; cout << "\033[31mThe Path is Blocked\033[0m" << endl;}
+                    if (!moveValid) {}
+                    else if (blocked == true) {moveValid = false; cout << "\033[31mThe Path is Blocked\033[0m" << endl;}
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) mainBoard.conquerMove(original, next);
                     else mainBoard.exchangePosition(original, next);
                 }
+
+                // For Moving Bishop
+                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackBishop){
+                    bool blocked = false;
+                    if (abs(nextxLoc - originalxLoc) != abs(nextyLoc - originalyLoc) || abs(nextxLoc - originalxLoc) == 0) {moveValid = false; cout << "\033[31mNot Diagonal Move or Same Position\033[0m" << endl;}
+                    else {
+                        for (int i = 1; i < abs(nextxLoc - originalxLoc); i++){
+                            if (nextxLoc > originalxLoc && nextyLoc > originalyLoc && mainBoard.getBoard(originalxLoc + i, originalyLoc + i) -> getColor() != empty) blocked = true;
+                            else if (nextxLoc > originalxLoc && nextyLoc < originalyLoc && mainBoard.getBoard(originalxLoc + i, originalyLoc - i) -> getColor() != empty) blocked = true;
+                            else if (nextxLoc < originalxLoc && nextyLoc > originalyLoc && mainBoard.getBoard(originalxLoc - i, originalyLoc + i) -> getColor() != empty) blocked = true;
+                            else if (nextxLoc < originalxLoc && nextyLoc < originalyLoc && mainBoard.getBoard(originalxLoc - i, originalyLoc - i) -> getColor() != empty) blocked = true;
+                        }
+                    }
+
+                    if (!moveValid) {}
+                    else if (blocked == true) {moveValid = false; cout << "\033[31mThe Path is Blocked\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) mainBoard.conquerMove(original, next);
+                    else mainBoard.exchangePosition(original, next);
+                }
+
+                // For Moving Queen
             }
         }
 
