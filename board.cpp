@@ -108,5 +108,15 @@ void Board::exchangePosition(vector <int> original, vector <int> next){
 
 // Conquer Other Pieces
 void Board::conquerMove(vector <int> original, vector <int> next){
+    // Change Piece Location
+    mainBoard[original[0]][original[1]] -> move(next);
     
+    // Delete The Conquered Piece
+    delete mainBoard[next[0]][next[1]];
+    mainBoard[next[0]][next[1]] = mainBoard[original[0]][original[1]];
+    
+    // Set Original Location to Empty
+    if (original[0] % 2 == 0 && original[1] % 2 == 1) mainBoard[original[0]][original[1]] = new Empty(original[0], original[1], empty, emptyTwo);
+    else if (original[0] % 2 == 1 && original[1] % 2 == 0) mainBoard[original[0]][original[1]] = new Empty(original[0], original[1], empty, emptyTwo);
+    else mainBoard[original[0]][original[1]] = new Empty(original[0], original[1], empty, emptyOne);
 }

@@ -143,8 +143,8 @@ int main(){
             if (nextPosition.size() != 2) validInput = false;
 
             // Invalid Input
-            if (!validInput) cout << "\033[31mInvalid Position\033[0m" << endl;
-            if (extraInput) cout << "\033[31mToo Many Arguments\033[0m" << endl;
+            if (!validInput) {moveValid = false; cout << "\033[31mInvalid Position\033[0m" << endl;}
+            if (extraInput) {moveValid = false; cout << "\033[31mToo Many Arguments\033[0m" << endl;}
 
             // For Extracting Valid Input
             if (validInput){
@@ -181,10 +181,10 @@ int main(){
                 */
             }
             // Check On Board or Not
-            if (originalxLoc < 0 || originalxLoc > 7 || originalyLoc < 0 || originalyLoc > 7 || nextxLoc < 0 || nextxLoc > 7 || nextyLoc < 0 || nextyLoc > 7) {validInput = false; cout << "\033[31mLocation Outside Board\033[0m" << endl;}
+            if (originalxLoc < 0 || originalxLoc > 7 || originalyLoc < 0 || originalyLoc > 7 || nextxLoc < 0 || nextxLoc > 7 || nextyLoc < 0 || nextyLoc > 7) {moveValid = false; cout << "\033[31mLocation Outside Board\033[0m" << endl;}
 
             // Check If Original Location if Empty or Not
-            if (validInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getColor() == empty) {validInput = false; cout << "\033[31mLocation Empty\033[0m" << endl;}
+            if (validInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getColor() == empty) {moveValid = false; cout << "\033[31mLocation Empty\033[0m" << endl;}
 
             // Setting Variables
             original.push_back(originalxLoc);
@@ -199,9 +199,10 @@ int main(){
             if (currentPlayer == white && validInput){
                 // For Moving Pawns
                 if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whitePawn){
-                    if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
-                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == true && (nextxLoc == 5 || nextxLoc == 4)) mainBoard.exchangePosition(original, next);
-                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == false && nextxLoc == originalxLoc - 1) mainBoard.exchangePosition(original, next);
+                    if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black && nextxLoc == originalxLoc - 1 && (nextyLoc == originalyLoc + 1 || nextyLoc == originalyLoc - 1)) mainBoard.conquerMove(original, next);
+                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == true && (nextxLoc == 5 || nextxLoc == 4) && nextyLoc == originalyLoc) mainBoard.exchangePosition(original, next);
+                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == false && nextxLoc == originalxLoc - 1 && nextyLoc == originalyLoc) mainBoard.exchangePosition(original, next);
                     else {moveValid = false; cout << "\033[31mInvalid Move\033[0m" << endl;}
                 }
             }
@@ -209,9 +210,10 @@ int main(){
             else if (currentPlayer == black && validInput){
                 // For Moving Pawns
                 if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackPawn){
-                    if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
-                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == true && (nextxLoc == 2 || nextxLoc == 3)) mainBoard.exchangePosition(original, next);
-                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == false && nextxLoc == originalxLoc + 1) mainBoard.exchangePosition(original, next);
+                    if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty&& mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white && nextxLoc == originalxLoc + 1 && (nextyLoc == originalyLoc + 1 || nextyLoc == originalyLoc - 1)) mainBoard.conquerMove(original, next);
+                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == true && (nextxLoc == 2 || nextxLoc == 3) && nextyLoc == originalyLoc) mainBoard.exchangePosition(original, next);
+                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == false && nextxLoc == originalxLoc + 1 && nextyLoc == originalyLoc) mainBoard.exchangePosition(original, next);
                     else {moveValid = false; cout << "\033[31mInvalid Move\033[0m" << endl;}
                 }
             }
