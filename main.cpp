@@ -1,6 +1,7 @@
 // Include Modules
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -27,6 +28,17 @@ string normalCommandList[4] = {"game", "resign", "move", "setup"};
 
 // The Main Function
 int main(){
+    // FOR TESTING USE ONLY
+    ifstream input;
+    int count = 0;
+    string input_input[2048];
+    input.open("testOne.txt");
+
+    for (int i = 0; i < 2048; i++){
+        getline(input, input_input[i]);
+        cout << input_input[i];
+    }
+
     // Variable Declaration
     Board mainBoard;
     string currentPlayer = white;
@@ -42,19 +54,27 @@ int main(){
     string line;
     string command;
 
-    // Prompt User For Input
+    // Prompt User For Input (Comment This For Testing)
+    /*
     cout << "\033[33mRead PDF for input instructions\033[0m" << endl;
     cout << "\033[36mCurrent Player: " << currentPlayer << "\033[0m" << endl;
     cout << "> ";
     getline(cin, line);
+    */
 
     // Main Game Part
-    while (!cin.eof() && !gameOver){
+    while (!cin.eof() && !gameOver && input_input[count] != "eof"){
+        // TESTING USE ONLY
+        stringstream lineStream(input_input[count]);
+        cout << input_input[count];
+        count++;
+
+
         // Variable Declaration
         bool moveValid = true;
 
         // New sstream for each input
-        stringstream lineStream(line);
+        // stringstream lineStream(line);
 
         // Read form string stream into comman
         command = "";
@@ -74,7 +94,10 @@ int main(){
             while (firstPlayer == -1){
                 string playerSelectOne;
                 cout << "\033[35mPlease Choose Player One (White), Human (0), AI1 (1), AI2 (2), AI3 (3), AI4 (4): \033[0m";
-                getline(cin, playerSelectOne);
+                // TESTING USE ONLY
+                playerSelectOne = input_input[count];
+
+                //getline(cin, playerSelectOne);
                 if (playerSelectOne != "0" && playerSelectOne != "1" && playerSelectOne != "2" && playerSelectOne != "3" && playerSelectOne != "4") cout << "\033[31mInvalid Input\033[0m" << endl;
                 else firstPlayer = stoi(playerSelectOne);
             }
@@ -83,7 +106,10 @@ int main(){
             while (secondPlayer == -1){
                 string playerSelectTwo;
                 cout << "\033[35mPlease Choose Player Two (Black), Human (0), AI1 (1), AI2 (2), AI3 (3), AI4 (4): \033[0m";
-                getline(cin, playerSelectTwo);
+                // TESTING USE ONLY
+                playerSelectTwo = input_input[count + 1];
+
+                //getline(cin, playerSelectTwo);
                 if (playerSelectTwo != "0" && playerSelectTwo != "1" && playerSelectTwo != "2" && playerSelectTwo != "3" && playerSelectTwo != "4") cout << "\033[31mInvalid Input\033[0m" << endl;
                 else secondPlayer = stoi(playerSelectTwo);
             }
@@ -299,11 +325,13 @@ int main(){
         mainBoard.draw();
 
         // Seek User Input Again
-        // Prompt User For Input
+        // Prompt User For Input (Comment This For Testing)
+        /*
         cout << "\033[33mRead PDF for input instructions\033[0m" << endl;
         cout << "\033[36mCurrent Player: " << currentPlayer << "\033[0m" << endl;
         cout << "> ";
         getline(cin, line);
+        */
     }
 
     // Draw the Board
