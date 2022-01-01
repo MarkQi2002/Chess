@@ -108,6 +108,19 @@ void Board::exchangePosition(vector <int> original, vector <int> next){
 
 // Conquer Other Pieces
 void Board::conquerMove(vector <int> original, vector <int> next){
+    // Output Result of Conquering
+    string conqueredType;
+    string conqueredColor = mainBoard[next[0]][next[1]] -> getColor();
+
+    if (mainBoard[next[0]][next[1]] -> getType() == whiteKing || mainBoard[next[0]][next[1]] -> getType() == blackKing) conqueredType = "King";
+    else if (mainBoard[next[0]][next[1]] -> getType() == whiteQueen || mainBoard[next[0]][next[1]] -> getType() == blackQueen) conqueredType = "Queen";
+    else if (mainBoard[next[0]][next[1]] -> getType() == whiteBishop || mainBoard[next[0]][next[1]] -> getType() == blackBishop) conqueredType = "Bishop";
+    else if (mainBoard[next[0]][next[1]] -> getType() == whiteRook || mainBoard[next[0]][next[1]] -> getType() == blackRook) conqueredType = "Rook";
+    else if (mainBoard[next[0]][next[1]] -> getType() == whiteKnight || mainBoard[next[0]][next[1]] -> getType() == blackKnight) conqueredType = "Knight";
+    else if (mainBoard[next[0]][next[1]] -> getType() == whitePawn || mainBoard[next[0]][next[1]] -> getType() == blackPawn) conqueredType = "Pawn";
+
+    cout << "\033[32mYou Have Conquered " << conqueredColor << "'s " << conqueredType << "\033[0m" << endl;
+    
     // Change Piece Location
     mainBoard[original[0]][original[1]] -> move(next);
     

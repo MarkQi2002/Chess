@@ -1,7 +1,7 @@
 game
 0
 0
-move b1 a3
-move b8 d7
-move b8 c6
+move a2 a4
+move b7 b5
+move a4 b5
 eof
