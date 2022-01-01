@@ -95,6 +95,7 @@ int main(){
                 cout << "\033[35mPlease Choose Player One (White), Human (0), AI1 (1), AI2 (2), AI3 (3), AI4 (4): \033[0m";
                 // TESTING USE ONLY
                 playerSelectOne = input_input[count];
+                cout << endl;
 
                 //getline(cin, playerSelectOne);
                 if (playerSelectOne != "0" && playerSelectOne != "1" && playerSelectOne != "2" && playerSelectOne != "3" && playerSelectOne != "4") cout << "\033[31mInvalid Input\033[0m" << endl;
@@ -107,6 +108,7 @@ int main(){
                 cout << "\033[35mPlease Choose Player Two (Black), Human (0), AI1 (1), AI2 (2), AI3 (3), AI4 (4): \033[0m";
                 // TESTING USE ONLY
                 playerSelectTwo = input_input[count + 1];
+                cout << endl;
 
                 //getline(cin, playerSelectTwo);
                 if (playerSelectTwo != "0" && playerSelectTwo != "1" && playerSelectTwo != "2" && playerSelectTwo != "3" && playerSelectTwo != "4") cout << "\033[31mInvalid Input\033[0m" << endl;
@@ -316,6 +318,18 @@ int main(){
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) mainBoard.conquerMove(original, next);
                     else mainBoard.exchangePosition(original, next);
                 }
+
+                // For Moving Knight
+                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteKnight){
+                    bool conquer = false;
+                    if ((abs(nextxLoc - originalxLoc) != 1 && abs(nextyLoc - originalyLoc) != 2) && (abs(nextxLoc - originalxLoc) != 2 || abs(nextyLoc - originalyLoc) != 1)) {moveValid = false; cout << "\033[31mInvalid Move For Knight\033[0m" << endl;}
+                    else conquer = true;
+                    
+                    if (!conquer) {}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) mainBoard.conquerMove(original, next);
+                    else mainBoard.exchangePosition(original, next);
+                }
             }
             // For Black
             else if (currentPlayer == black && validInput){
@@ -409,6 +423,18 @@ int main(){
 
                     if (!moveValid) {}
                     else if (blocked == true) {moveValid = false; cout << "\033[31mThe Path is Blocked\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) mainBoard.conquerMove(original, next);
+                    else mainBoard.exchangePosition(original, next);
+                }
+            
+                // For Moving Knight
+                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackKnight){
+                    bool conquer = false;
+                    if ((abs(nextxLoc - originalxLoc) != 1 && abs(nextyLoc - originalyLoc) != 2) && (abs(nextxLoc - originalxLoc) != 2 || abs(nextyLoc - originalyLoc) != 1)) {moveValid = false; cout << "\033[31mInvalid Move For Knight\033[0m" << endl;}
+                    else conquer = true;
+                    
+                    if (!conquer) {}
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) mainBoard.conquerMove(original, next);
                     else mainBoard.exchangePosition(original, next);
