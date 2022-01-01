@@ -149,9 +149,11 @@ int main(){
             // Controlling Input
             string originalPosition;
             string nextPosition;
+            string pawnUpgrade;
             string temp;
             bool validInput = true;
             bool extraInput = false;
+            bool pawnInput = false;
 
             // Variable Declaration
             int originalxLoc;   // Row Number
@@ -162,16 +164,18 @@ int main(){
             vector <int> next;
             
             // Getting Input From stringstream
-            lineStream >> originalPosition >> nextPosition >> temp;
+            lineStream >> originalPosition >> nextPosition >> pawnUpgrade;
 
             // Verify Input
             if (temp != "") extraInput = true;
+            if (nextPosition[1] != '8' && nextPosition[1] != '1' && pawnUpgrade != "") extraInput = true;
+            if ((nextPosition[1] == '8' || nextPosition[1] == '1') && pawnUpgrade.length() == 1) pawnInput = true;
             if (originalPosition.size() != 2) validInput = false;
             if (nextPosition.size() != 2) validInput = false;
 
             // Invalid Input
             if (!validInput) {moveValid = false; cout << "\033[31mInvalid Position\033[0m" << endl;}
-            if (extraInput) {moveValid = false; cout << "\033[31mToo Many Arguments\033[0m" << endl;}
+            if (extraInput) {validInput = false; moveValid = false; cout << "\033[31mToo Many Arguments\033[0m" << endl;}
 
             // For Extracting Valid Input
             if (validInput){
@@ -198,6 +202,11 @@ int main(){
                 else if (nextPosition[0] == 'h') nextyLoc = 7;
 
                 nextxLoc = 8 - (nextPosition[1] - '0'); // Row Number
+
+                // Pawn Upgrade
+                if (pawnInput){
+                    if (pawnUpgrade[0] != whiteQueen && pawnUpgrade[0] != whiteBishop && pawnUpgrade[0] != whiteRook && pawnUpgrade[0] != whiteKnight && pawnUpgrade[0] != blackQueen && pawnUpgrade[0] != blackBishop && pawnUpgrade[0] != blackRook && pawnUpgrade[0] != blackKnight) {validInput = false; moveValid = false; cout << "\033[31mInvalid Input For Upgrade\033[0m" << endl;}
+                }
 
                 // Testing Use
                 /*
