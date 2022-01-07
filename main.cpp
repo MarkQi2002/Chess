@@ -253,8 +253,20 @@ int main(){
                 // For Moving King
                 else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteKing){
                     if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
-                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black && (nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.conquerMove(original, next);
-                    else if ((nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.exchangePosition(original, next);
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black && (nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) {mainBoard.getBoard(originalxLoc, originalyLoc) -> setCastling(false); mainBoard.conquerMove(original, next);}
+                    else if ((nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) {mainBoard.getBoard(originalxLoc, originalyLoc) -> setCastling(false); mainBoard.exchangePosition(original, next);}
+                    else if (nextxLoc == 7 && nextyLoc == 2 && mainBoard.getBoard(originalxLoc, originalyLoc) -> getCastling() == true && mainBoard.getBoard(7, 1) -> getColor() == empty && mainBoard.getBoard(7, 2) -> getColor() == empty && mainBoard.getBoard(7, 3) -> getColor() == empty) {
+                        mainBoard.exchangePosition(original, next);
+                        vector <int> rookOriginal {7, 0};
+                        vector <int> rookNext {7, 3};
+                        mainBoard.exchangePosition(rookOriginal, rookNext);
+                    }
+                    else if (nextxLoc == 7 && nextyLoc == 6 && mainBoard.getBoard(originalxLoc, originalyLoc) -> getCastling() == true && mainBoard.getBoard(7, 5) -> getColor() == empty && mainBoard.getBoard(7, 6) -> getColor() == empty) {
+                        mainBoard.exchangePosition(original, next);
+                        vector <int> rookOriginal {7, 7};
+                        vector <int> rookNext {7, 5};
+                        mainBoard.exchangePosition(rookOriginal, rookNext);
+                    }
                     else {moveValid = false; cout << "\033[31mInvalid Move\033[0m" << endl;}
                 }
 
@@ -365,8 +377,20 @@ int main(){
                 // For Moving King
                 else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackKing){
                     if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
-                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white && (nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.conquerMove(original, next);
-                    else if ((nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.exchangePosition(original, next);
+                    else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white && (nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) {mainBoard.getBoard(originalxLoc, originalyLoc) -> setCastling(false); mainBoard.conquerMove(original, next);}
+                    else if ((nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) {mainBoard.getBoard(originalxLoc, originalyLoc) -> setCastling(false); mainBoard.exchangePosition(original, next);}
+                    else if (nextxLoc == 0 && nextyLoc == 2 && mainBoard.getBoard(originalxLoc, originalyLoc) -> getCastling() == true && mainBoard.getBoard(0, 1) -> getColor() == empty && mainBoard.getBoard(0, 2) -> getColor() == empty && mainBoard.getBoard(0, 3) -> getColor() == empty) {
+                        mainBoard.exchangePosition(original, next);
+                        vector <int> rookOriginal {0, 0};
+                        vector <int> rookNext {0, 3};
+                        mainBoard.exchangePosition(rookOriginal, rookNext);
+                    }
+                    else if (nextxLoc == 0 && nextyLoc == 6 && mainBoard.getBoard(originalxLoc, originalyLoc) -> getCastling() == true && mainBoard.getBoard(0, 5) -> getColor() == empty && mainBoard.getBoard(0, 6) -> getColor() == empty) {
+                        mainBoard.exchangePosition(original, next);
+                        vector <int> rookOriginal {0, 7};
+                        vector <int> rookNext {0, 5};
+                        mainBoard.exchangePosition(rookOriginal, rookNext);
+                    }
                     else {moveValid = false; cout << "\033[31mInvalid Move\033[0m" << endl;}
                 }
 
