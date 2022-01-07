@@ -31,6 +31,10 @@ char Piece::getType(){
     return emptyOne; // THIS COULD BE WRONG
 }
 
+bool Piece::getCastling(){
+    return false; // THIS COULD BE WRONG
+}
+
 // Mutators
 void Piece::move(vector <int> newPosition){
     position = newPosition;
@@ -45,6 +49,10 @@ void Piece::setFirstMove(bool newFirstMove){
 }
 
 void Piece::setType(char newType){
+
+}
+
+void Piece::setCastling(bool newCastling){
 
 }
 

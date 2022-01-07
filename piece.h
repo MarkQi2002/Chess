@@ -26,10 +26,12 @@ class Piece{
         string getColor();
         virtual bool getFirstMove();
         virtual char getType();
+        virtual bool getCastling();
         void move(vector <int> newPosition);
         void setColor(string newColor);
         virtual void setFirstMove(bool newFirstMove);
         virtual void setType(char newType);
+        virtual void setCastling(bool newCastling);
         virtual void checkType(); // For Empty Class
 
         // Utility Function

@@ -203,7 +203,7 @@ int main(){
 
                 nextxLoc = 8 - (nextPosition[1] - '0'); // Row Number
 
-                // Pawn Upgrade
+                // Pawn Upgrade Checking
                 if (pawnInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() != whitePawn && mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() != blackPawn) {validInput = false; moveValid = false; pawnInput = false; cout << "\033[31mNot a Pawn\033[0m" << endl;}
                 if (pawnInput){
                     if (pawnUpgrade[0] != whiteQueen && pawnUpgrade[0] != whiteBishop && pawnUpgrade[0] != whiteRook && pawnUpgrade[0] != whiteKnight && pawnUpgrade[0] != blackQueen && pawnUpgrade[0] != blackBishop && pawnUpgrade[0] != blackRook && pawnUpgrade[0] != blackKnight) {validInput = false; moveValid = false; pawnInput = false; cout << "\033[31mInvalid Input For Upgrade\033[0m" << endl;}
@@ -238,8 +238,10 @@ int main(){
 
             // For White
             if (currentPlayer == white && validInput){
+                if (nextxLoc == originalxLoc && nextyLoc == originalyLoc) {moveValid = false; cout << "\033[31mYou Are Not Moving\033[0m" << endl;}
+                
                 // For Moving Pawns
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whitePawn){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whitePawn){
                     if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black && nextxLoc == originalxLoc - 1 && (nextyLoc == originalyLoc + 1 || nextyLoc == originalyLoc - 1)) mainBoard.conquerMove(original, next);
                     else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == true && (nextxLoc == 5 || nextxLoc == 4) && nextyLoc == originalyLoc) mainBoard.exchangePosition(original, next);
@@ -249,7 +251,7 @@ int main(){
                 }
 
                 // For Moving King
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteKing){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteKing){
                     if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black && (nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.conquerMove(original, next);
                     else if ((nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.exchangePosition(original, next);
@@ -257,7 +259,7 @@ int main(){
                 }
 
                 // For Moving Rook
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteRook){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteRook){
                     bool blocked = false;
                     if (originalxLoc != nextxLoc && originalyLoc != nextyLoc) {moveValid = false; cout << "\033[31mNot Horizontal Or Vertical\033[0m" << endl;}
                     else if (originalxLoc == nextxLoc){
@@ -282,7 +284,7 @@ int main(){
                 }
 
                 // For Moving Bishop
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteBishop){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteBishop){
                     bool blocked = false;
                     if (abs(nextxLoc - originalxLoc) != abs(nextyLoc - originalyLoc) || abs(nextxLoc - originalxLoc) == 0) {moveValid = false; cout << "\033[31mNot Diagonal Move or Same Position\033[0m" << endl;}
                     else {
@@ -302,7 +304,7 @@ int main(){
                 }
 
                 // For Moving Queen
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteQueen){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteQueen){
                     bool blocked = false;
                     if ((originalxLoc != nextxLoc && originalyLoc != nextyLoc) || (abs(nextxLoc - originalxLoc) != abs(nextyLoc - originalyLoc) && abs(nextxLoc - originalxLoc) == 0)) {moveValid = false; cout << "\033[31mNot Diagonal, Horizontal, or Vertical Move\033[0m" << endl;}
                     else if (originalxLoc == nextxLoc){
@@ -335,7 +337,7 @@ int main(){
                 }
 
                 // For Moving Knight
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteKnight){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteKnight){
                     bool conquer = false;
                     if ((abs(nextxLoc - originalxLoc) != 1 && abs(nextyLoc - originalyLoc) != 2) && (abs(nextxLoc - originalxLoc) != 2 || abs(nextyLoc - originalyLoc) != 1)) {moveValid = false; cout << "\033[31mInvalid Move For Knight\033[0m" << endl;}
                     else conquer = true;
@@ -348,8 +350,10 @@ int main(){
             }
             // For Black
             else if (currentPlayer == black && validInput){
+                if (nextxLoc == originalxLoc && nextyLoc == originalyLoc) {moveValid = false; cout << "\033[31mYou Are Not Moving\033[0m" << endl;}
+
                 // For Moving Pawns
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackPawn){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackPawn){
                     if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty&& mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white && nextxLoc == originalxLoc + 1 && (nextyLoc == originalyLoc + 1 || nextyLoc == originalyLoc - 1)) mainBoard.conquerMove(original, next);
                     else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getFirstMove() == true && (nextxLoc == 2 || nextxLoc == 3) && nextyLoc == originalyLoc) mainBoard.exchangePosition(original, next);
@@ -359,7 +363,7 @@ int main(){
                 }
 
                 // For Moving King
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackKing){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackKing){
                     if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) {moveValid = false; cout << "\033[31mNext Position is Occupied\033[0m" << endl;}
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white && (nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.conquerMove(original, next);
                     else if ((nextxLoc == originalxLoc - 1 || nextxLoc == originalxLoc || nextxLoc == originalxLoc + 1) && (nextyLoc == originalyLoc - 1 || nextyLoc == originalyLoc || nextyLoc == originalyLoc + 1)) mainBoard.exchangePosition(original, next);
@@ -367,7 +371,7 @@ int main(){
                 }
 
                 // For Moving Rook
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackRook){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackRook){
                     bool blocked = false;
                     if (originalxLoc != nextxLoc && originalyLoc != nextyLoc) {moveValid = false; cout << "\033[31mNot Horizontal Or Vertical\033[0m" << endl;}
                     else if (originalxLoc == nextxLoc){
@@ -392,7 +396,7 @@ int main(){
                 }
 
                 // For Moving Bishop
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackBishop){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackBishop){
                     bool blocked = false;
                     if (abs(nextxLoc - originalxLoc) != abs(nextyLoc - originalyLoc) || abs(nextxLoc - originalxLoc) == 0) {moveValid = false; cout << "\033[31mNot Diagonal Move or Same Position\033[0m" << endl;}
                     else {
@@ -412,7 +416,7 @@ int main(){
                 }
 
                 // For Moving Queen
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackQueen){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackQueen){
                     bool blocked = false;
                     if ((originalxLoc != nextxLoc && originalyLoc != nextyLoc) || (abs(nextxLoc - originalxLoc) != abs(nextyLoc - originalyLoc) && abs(nextxLoc - originalxLoc) == 0)) {moveValid = false; cout << "\033[31mNot Diagonal, Horizontal, or Vertical Move\033[0m" << endl;}
                     else if (originalxLoc == nextxLoc){
@@ -445,7 +449,7 @@ int main(){
                 }
             
                 // For Moving Knight
-                if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackKnight){
+                else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackKnight){
                     bool conquer = false;
                     if ((abs(nextxLoc - originalxLoc) != 1 && abs(nextyLoc - originalyLoc) != 2) && (abs(nextxLoc - originalxLoc) != 2 || abs(nextyLoc - originalyLoc) != 1)) {moveValid = false; cout << "\033[31mInvalid Move For Knight\033[0m" << endl;}
                     else conquer = true;
@@ -483,8 +487,8 @@ int main(){
         */
     }
 
-    // Draw the Board
-    mainBoard.draw();
+    // Draw the Board For Testing
+    // mainBoard.draw();
     
     return 0;
 }
