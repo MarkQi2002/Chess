@@ -1,5 +1,16 @@
 game
 0
 0
-move a2 a3 Q
+move d2 d4
+move g7 g6
+move e2 e3
+move g8 f6
+move b1 a3
+move h7 h6
+move c1 d2
+move e7 e6
+move d1 f3
+move f8 d6
+move e1 c1
+move f6 h5
 eof

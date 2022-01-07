@@ -318,7 +318,7 @@ int main(){
                 // For Moving Queen
                 else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == whiteQueen){
                     bool blocked = false;
-                    if ((originalxLoc != nextxLoc && originalyLoc != nextyLoc) || (abs(nextxLoc - originalxLoc) != abs(nextyLoc - originalyLoc) && abs(nextxLoc - originalxLoc) == 0)) {moveValid = false; cout << "\033[31mNot Diagonal, Horizontal, or Vertical Move\033[0m" << endl;}
+                    if ((originalxLoc != nextxLoc && originalyLoc != nextyLoc) && (abs(nextxLoc - originalxLoc) != abs(nextyLoc - originalyLoc) && abs(nextxLoc - originalxLoc) == 0)) {moveValid = false; cout << "\033[31mNot Diagonal, Horizontal, or Vertical Move\033[0m" << endl;}
                     else if (originalxLoc == nextxLoc){
                         for (int i = 1; i < abs(nextyLoc - originalyLoc); i++){
                             if (nextyLoc > originalyLoc && mainBoard.getBoard(originalxLoc, originalyLoc + i) -> getColor() != empty) blocked = true;
@@ -442,7 +442,7 @@ int main(){
                 // For Moving Queen
                 else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() == blackQueen){
                     bool blocked = false;
-                    if ((originalxLoc != nextxLoc && originalyLoc != nextyLoc) || (abs(nextxLoc - originalxLoc) != abs(nextyLoc - originalyLoc) && abs(nextxLoc - originalxLoc) == 0)) {moveValid = false; cout << "\033[31mNot Diagonal, Horizontal, or Vertical Move\033[0m" << endl;}
+                    if ((originalxLoc != nextxLoc && originalyLoc != nextyLoc) && (abs(nextxLoc - originalxLoc) != abs(nextyLoc - originalyLoc) && abs(nextxLoc - originalxLoc) == 0)) {moveValid = false; cout << "\033[31mNot Diagonal, Horizontal, or Vertical Move\033[0m" << endl;}
                     else if (originalxLoc == nextxLoc){
                         for (int i = 1; i < abs(nextyLoc - originalyLoc); i++){
                             if (nextyLoc > originalyLoc && mainBoard.getBoard(originalxLoc, originalyLoc + i) -> getColor() != empty) blocked = true;
