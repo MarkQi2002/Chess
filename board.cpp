@@ -156,8 +156,11 @@ void Board::upgradePawn(vector <int> original, vector <int> next, char upgradeTy
 }
 
 bool Board::checkWin(){
+    // Variable Declaration
     bool whiteWin = true;
     bool blackWin = true;
+
+    // Check If King Still Exists
     for (int i = 0; i < boardSize; i++){
         for (int j = 0; j < boardSize; j++){
             if (mainBoard[i][j] -> getType() == whiteKing) blackWin = false;
@@ -165,23 +168,284 @@ bool Board::checkWin(){
         }
     }
 
+    // Output To User
     if (whiteWin) {cout << "White Won!!!" << endl; return true;}
     else if (blackWin) {cout << "Black Won!!!" << endl; return true;}
     else return false;
 }
 
 void Board::checkMate(){
+    // Variable Declaration
     int whiteKingXLoc;
     int whiteKingYLoc;
+    bool whiteKingCheckMate = false;
     int blackKingXLoc;
     int blackKingYLoc;
+    bool blackKingCheckMate = false;
+    
+    // Get Location of Both Kings
     for (int i = 0; i < boardSize; i++){
         for (int j = 0; j < boardSize; j++){
             if (mainBoard[i][j] -> getType() == whiteKing) {whiteKingXLoc = i; whiteKingYLoc = j;}
-            else if (mainBoard[i][j] -> getType() == blackKing) {blackKingXLoc = i; blackKingYLoc = j;}
+            if (mainBoard[i][j] -> getType() == blackKing) {blackKingXLoc = i; blackKingYLoc = j;}
         }
     }
 
+    // For White King
+    // Check For Pawns
+    if (whiteKingXLoc >= 2 && whiteKingXLoc == 0 && mainBoard[whiteKingXLoc - 1][whiteKingYLoc + 1] -> getType() == blackPawn) whiteKingCheckMate = true;
+    else if (whiteKingXLoc >= 2 && whiteKingYLoc > 0 && whiteKingYLoc < 7 && (mainBoard[whiteKingXLoc - 1][whiteKingYLoc - 1] -> getType() == blackPawn || mainBoard[whiteKingXLoc - 1][whiteKingYLoc + 1] -> getType() == blackPawn)) whiteKingCheckMate = true;
+    else if (whiteKingXLoc >= 2 && whiteKingXLoc == 7 && mainBoard[whiteKingXLoc - 1][whiteKingYLoc - 1] -> getType() == blackPawn) whiteKingCheckMate = true;
+
+    // Check For King
+    if ((blackKingXLoc == whiteKingXLoc - 1 || blackKingXLoc == whiteKingXLoc || blackKingXLoc == whiteKingXLoc + 1) && (blackKingYLoc == whiteKingYLoc - 1 || blackKingYLoc == whiteKingYLoc || blackKingYLoc == whiteKingYLoc + 1)) whiteKingCheckMate = true;
+
+    // Check For Rook and Part of Queen
+    bool blockedBlackRook = false;
+    bool blockedBlackQueen = false;
+    for (int i = whiteKingXLoc + 1; i < abs(boardSize - whiteKingXLoc); i++){
+        if (mainBoard[i][whiteKingYLoc] -> getType() != emptyOne && mainBoard[i][whiteKingYLoc] -> getType() != emptyTwo && mainBoard[i][whiteKingYLoc] -> getType() != blackRook && mainBoard[i][whiteKingYLoc] -> getType() != blackQueen) {blockedBlackRook = true; blockedBlackQueen = true;}
+        else if (mainBoard[i][whiteKingYLoc] -> getType() == blackRook && !blockedBlackRook) whiteKingCheckMate = true;
+        else if (mainBoard[i][whiteKingYLoc] -> getType() == blackQueen && !blockedBlackQueen) whiteKingCheckMate = true;
+    }
+
+    blockedBlackRook = false;
+    blockedBlackQueen = false;
+
+    for (int i = whiteKingXLoc - 1; i >= 0; i--){
+        if (mainBoard[i][whiteKingYLoc] -> getType() != emptyOne && mainBoard[i][whiteKingYLoc] -> getType() != emptyTwo && mainBoard[i][whiteKingYLoc] -> getType() != blackRook && mainBoard[i][whiteKingYLoc] -> getType() != blackQueen) {blockedBlackRook = true; blockedBlackQueen = true;}
+        else if (mainBoard[i][whiteKingYLoc] -> getType() == blackRook && !blockedBlackRook) whiteKingCheckMate = true;
+        else if (mainBoard[i][whiteKingYLoc] -> getType() == blackQueen && !blockedBlackQueen) whiteKingCheckMate = true;
+    }
+
+    blockedBlackRook = false;
+    blockedBlackQueen = false;
+
+    for (int i = whiteKingYLoc + 1; i < abs(boardSize - whiteKingXLoc); i++){
+        if (mainBoard[whiteKingXLoc][i] -> getType() != emptyOne && mainBoard[whiteKingXLoc][i] -> getType() != emptyTwo && mainBoard[whiteKingXLoc][i] -> getType() != blackRook && mainBoard[whiteKingXLoc][i] -> getType() != blackQueen) {blockedBlackRook = true; blockedBlackQueen = true;}
+        else if (mainBoard[whiteKingXLoc][i] -> getType() == blackRook && !blockedBlackRook) whiteKingCheckMate = true;
+        else if (mainBoard[whiteKingXLoc][i] -> getType() == blackQueen && !blockedBlackQueen) whiteKingCheckMate = true;
+    }
+
+    blockedBlackRook = false;
+    blockedBlackQueen = false;
+
+    for (int i = whiteKingYLoc - 1; i >= 0; i--){
+        if (mainBoard[whiteKingXLoc][i] -> getType() != emptyOne && mainBoard[whiteKingXLoc][i] -> getType() != emptyTwo && mainBoard[whiteKingXLoc][i] -> getType() != blackRook && mainBoard[whiteKingXLoc][i] -> getType() != blackQueen) {blockedBlackRook = true; blockedBlackQueen = true;}
+        else if (mainBoard[whiteKingXLoc][i] -> getType() == blackRook && !blockedBlackRook) whiteKingCheckMate = true;
+        else if (mainBoard[whiteKingXLoc][i] -> getType() == blackQueen && !blockedBlackQueen) whiteKingCheckMate = true;
+    }
+
+    // Check For Bishop and Other Part of Queen
+    bool blockedBlackBishop = false;
+    blockedBlackQueen = false;
+
+    for (int i = 1; i < boardSize; i++){
+        if (whiteKingXLoc + i < boardSize && whiteKingYLoc + i < boardSize){
+            if (mainBoard[whiteKingXLoc + i][whiteKingYLoc + i] -> getType() != emptyOne && mainBoard[whiteKingXLoc + i][whiteKingYLoc + i] -> getType() != emptyTwo && mainBoard[whiteKingXLoc + i][whiteKingYLoc + i] -> getType() != blackBishop && mainBoard[whiteKingXLoc + i][whiteKingYLoc + i] -> getType() != blackQueen){
+                blockedBlackBishop = true;
+                blockedBlackQueen = true;
+            }
+            else if (mainBoard[whiteKingXLoc + i][whiteKingYLoc + i] -> getType() == blackBishop && !blockedBlackBishop) whiteKingCheckMate = true;
+            else if (mainBoard[whiteKingXLoc + i][whiteKingYLoc + i] -> getType() == blackQueen && !blockedBlackQueen) whiteKingCheckMate = true;
+        }
+    }
+
+    blockedBlackBishop = false;
+    blockedBlackQueen = false;
+    for (int i = 1; i < boardSize; i++){
+        if (whiteKingXLoc + i < boardSize && whiteKingYLoc - i >= 0){
+            if (mainBoard[whiteKingXLoc + i][whiteKingYLoc - i] -> getType() != emptyOne && mainBoard[whiteKingXLoc + i][whiteKingYLoc - i] -> getType() != emptyTwo && mainBoard[whiteKingXLoc + i][whiteKingYLoc - i] -> getType() != blackBishop && mainBoard[whiteKingXLoc + i][whiteKingYLoc - i] -> getType() != blackQueen){
+                blockedBlackBishop = true;
+                blockedBlackQueen = true;
+            }
+            else if (mainBoard[whiteKingXLoc + i][whiteKingYLoc - i] -> getType() == blackBishop && !blockedBlackBishop) whiteKingCheckMate = true;
+            else if (mainBoard[whiteKingXLoc + i][whiteKingYLoc - i] -> getType() == blackQueen && !blockedBlackQueen) whiteKingCheckMate = true;
+        }
+    }
+
+    blockedBlackBishop = false;
+    blockedBlackQueen = false;
+    for (int i = 1; i < boardSize; i++){
+        if (whiteKingXLoc - i >= 0 && whiteKingYLoc + i < boardSize){
+            if (mainBoard[whiteKingXLoc - i][whiteKingYLoc + i] -> getType() != emptyOne && mainBoard[whiteKingXLoc - i][whiteKingYLoc + i] -> getType() != emptyTwo && mainBoard[whiteKingXLoc - i][whiteKingYLoc + i] -> getType() != blackBishop && mainBoard[whiteKingXLoc - i][whiteKingYLoc + i] -> getType() != blackQueen){
+                blockedBlackBishop = true;
+                blockedBlackQueen = true;
+            }
+            else if (mainBoard[whiteKingXLoc - i][whiteKingYLoc + i] -> getType() == blackBishop && !blockedBlackBishop) whiteKingCheckMate = true;
+            else if (mainBoard[whiteKingXLoc - i][whiteKingYLoc + i] -> getType() == blackQueen && !blockedBlackQueen) whiteKingCheckMate = true;
+        }
+    }
+
+    blockedBlackBishop = false;
+    blockedBlackQueen = false;
+    for (int i = 1; i < boardSize; i++){
+        if (whiteKingXLoc - i >= 0 && whiteKingYLoc - i >= 0){
+            if (mainBoard[whiteKingXLoc - i][whiteKingYLoc - i] -> getType() != emptyOne && mainBoard[whiteKingXLoc - i][whiteKingYLoc - i] -> getType() != emptyTwo && mainBoard[whiteKingXLoc - i][whiteKingYLoc - i] -> getType() != blackBishop && mainBoard[whiteKingXLoc - i][whiteKingYLoc - i] -> getType() != blackQueen){
+                blockedBlackBishop = true;
+                blockedBlackQueen = true;
+            }
+            else if (mainBoard[whiteKingXLoc - i][whiteKingYLoc - i] -> getType() == blackBishop && !blockedBlackBishop) whiteKingCheckMate = true;
+            else if (mainBoard[whiteKingXLoc - i][whiteKingYLoc - i] -> getType() == blackQueen && !blockedBlackQueen) whiteKingCheckMate = true;
+        }
+    }
+
+    // Check For Knight
+    if (whiteKingXLoc + 1 < boardSize && whiteKingYLoc + 2 < boardSize){
+        if (mainBoard[whiteKingXLoc + 1][whiteKingYLoc + 2] -> getType() == blackKnight) whiteKingCheckMate = true;
+    }
+    if (whiteKingXLoc + 2 < boardSize && whiteKingYLoc + 1 < boardSize){
+        if (mainBoard[whiteKingXLoc + 2][whiteKingYLoc + 1] -> getType() == blackKnight) whiteKingCheckMate = true;
+    }
+    if (whiteKingXLoc + 1 < boardSize && whiteKingYLoc - 2 >= 0){
+        if (mainBoard[whiteKingXLoc + 1][whiteKingYLoc - 2] -> getType() == blackKnight) whiteKingCheckMate = true;
+    }
+    if (whiteKingXLoc + 2 < boardSize && whiteKingYLoc - 1 >= 0){
+        if (mainBoard[whiteKingXLoc + 2][whiteKingYLoc - 1] -> getType() == blackKnight) whiteKingCheckMate = true;
+    }
+    if (whiteKingXLoc - 1 >= 0 && whiteKingYLoc + 2 < boardSize){
+        if (mainBoard[whiteKingXLoc - 1][whiteKingYLoc + 2] -> getType() == blackKnight) whiteKingCheckMate = true;
+    }
+    if (whiteKingXLoc - 2 >= 0 && whiteKingYLoc + 1 < boardSize){
+        if (mainBoard[whiteKingXLoc - 2][whiteKingYLoc + 1] -> getType() == blackKnight) whiteKingCheckMate = true;
+    }
+    if (whiteKingXLoc - 1 >= 0 && whiteKingYLoc - 2 >= 0){
+        if (mainBoard[whiteKingXLoc - 1][whiteKingYLoc - 2] -> getType() == blackKnight) whiteKingCheckMate = true;
+    }
+    if (whiteKingXLoc - 2 >= 0 && whiteKingYLoc - 1 >= 0){
+        if (mainBoard[whiteKingXLoc - 2][whiteKingYLoc - 1] -> getType() == blackKnight) whiteKingCheckMate = true;
+    }
+
+
+    // For Black King
+    // Check For Pawns
+    if (blackKingXLoc <= 6 && blackKingXLoc == 0 && mainBoard[blackKingXLoc + 1][blackKingYLoc + 1] -> getType() == whitePawn) blackKingCheckMate = true;
+    else if (blackKingXLoc <= 6 && blackKingYLoc > 0 && blackKingYLoc < 7 && (mainBoard[blackKingXLoc + 1][blackKingYLoc - 1] -> getType() == whitePawn || mainBoard[blackKingXLoc + 1][blackKingYLoc + 1] -> getType() == whitePawn)) blackKingCheckMate = true;
+    else if (blackKingXLoc <= 6 && blackKingXLoc == 7 && mainBoard[blackKingXLoc + 1][blackKingYLoc - 1] -> getType() == whitePawn) blackKingCheckMate = true;
     
 
+    // Check For King
+    if ((blackKingXLoc == whiteKingXLoc - 1 || blackKingXLoc == whiteKingXLoc || blackKingXLoc == whiteKingXLoc + 1) && (blackKingYLoc == whiteKingYLoc - 1 || blackKingYLoc == whiteKingYLoc || blackKingYLoc == whiteKingYLoc + 1)) blackKingCheckMate = true;
+
+    // Check For Rook and Part of Queen
+    bool blockedWhiteRook = false;
+    bool blockedWhiteQueen = false;
+    for (int i = blackKingXLoc + 1; i < abs(boardSize - blackKingXLoc); i++){
+        if (mainBoard[i][blackKingYLoc] -> getType() != emptyOne && mainBoard[i][blackKingYLoc] -> getType() != emptyTwo && mainBoard[i][blackKingYLoc] -> getType() != whiteRook && mainBoard[i][blackKingYLoc] -> getType() != whiteQueen) {blockedWhiteRook = true; blockedWhiteQueen = true;}
+        else if (mainBoard[i][blackKingYLoc] -> getType() == whiteRook && !blockedWhiteRook) blackKingCheckMate = true;
+        else if (mainBoard[i][blackKingYLoc] -> getType() == whiteQueen && !blockedWhiteQueen) blackKingCheckMate = true;
+    }
+
+    blockedWhiteRook = false;
+    blockedWhiteQueen = false;
+
+    for (int i = blackKingXLoc - 1; i >= 0; i--){
+        if (mainBoard[i][blackKingYLoc] -> getType() != emptyOne && mainBoard[i][blackKingYLoc] -> getType() != emptyTwo && mainBoard[i][blackKingYLoc] -> getType() != whiteRook && mainBoard[i][blackKingYLoc] -> getType() != whiteQueen) {blockedWhiteRook = true; blockedWhiteQueen = true;}
+        else if (mainBoard[i][blackKingYLoc] -> getType() == whiteRook && !blockedWhiteRook) blackKingCheckMate = true;
+        else if (mainBoard[i][blackKingYLoc] -> getType() == whiteQueen && !blockedWhiteQueen) blackKingCheckMate = true;
+    }
+
+    blockedWhiteRook = false;
+    blockedWhiteQueen = false;
+
+    for (int i = blackKingYLoc + 1; i < abs(boardSize - blackKingXLoc); i++){
+        if (mainBoard[blackKingXLoc][i] -> getType() != emptyOne && mainBoard[blackKingXLoc][i] -> getType() != emptyTwo && mainBoard[blackKingXLoc][i] -> getType() != whiteRook && mainBoard[blackKingXLoc][i] -> getType() != whiteQueen) {blockedWhiteRook = true; blockedWhiteQueen = true;}
+        else if (mainBoard[blackKingXLoc][i] -> getType() == whiteRook && !blockedWhiteRook) blackKingCheckMate = true;
+        else if (mainBoard[blackKingXLoc][i] -> getType() == whiteQueen && !blockedWhiteQueen) blackKingCheckMate = true;
+    }
+
+    blockedWhiteRook = false;
+    blockedWhiteQueen = false;
+
+    for (int i = blackKingYLoc - 1; i >= 0; i--){
+        if (mainBoard[blackKingXLoc][i] -> getType() != emptyOne && mainBoard[blackKingXLoc][i] -> getType() != emptyTwo && mainBoard[blackKingXLoc][i] -> getType() != whiteRook && mainBoard[blackKingXLoc][i] -> getType() != whiteQueen) {blockedWhiteRook = true; blockedWhiteQueen = true;}
+        else if (mainBoard[blackKingXLoc][i] -> getType() == whiteRook && !blockedWhiteRook) blackKingCheckMate = true;
+        else if (mainBoard[blackKingXLoc][i] -> getType() == whiteQueen && !blockedWhiteQueen) blackKingCheckMate = true;
+    }
+
+    // Check For Bishop and Other Part of Queen
+    bool blockedWhiteBishop = false;
+    blockedWhiteQueen = false;
+
+    for (int i = 1; i < boardSize; i++){
+        if (blackKingXLoc + i < boardSize && blackKingYLoc + i < boardSize){
+            if (mainBoard[blackKingXLoc + i][blackKingYLoc + i] -> getType() != emptyOne && mainBoard[blackKingXLoc + i][blackKingYLoc + i] -> getType() != emptyTwo && mainBoard[blackKingXLoc + i][blackKingYLoc + i] -> getType() != whiteBishop && mainBoard[blackKingXLoc + i][blackKingYLoc + i] -> getType() != whiteQueen){
+                blockedWhiteBishop = true;
+                blockedWhiteQueen = true;
+            }
+            else if (mainBoard[blackKingXLoc + i][blackKingYLoc + i] -> getType() == whiteBishop && !blockedWhiteBishop) blackKingCheckMate = true;
+            else if (mainBoard[blackKingXLoc + i][blackKingYLoc + i] -> getType() == whiteQueen && !blockedWhiteQueen) blackKingCheckMate = true;
+        }
+    }
+
+    blockedWhiteBishop = false;
+    blockedWhiteQueen = false;
+    for (int i = 1; i < boardSize; i++){
+        if (blackKingXLoc + i < boardSize && blackKingYLoc - i >= 0){
+            if (mainBoard[blackKingXLoc + i][blackKingYLoc - i] -> getType() != emptyOne && mainBoard[blackKingXLoc + i][blackKingYLoc - i] -> getType() != emptyTwo && mainBoard[blackKingXLoc + i][blackKingYLoc - i] -> getType() != whiteBishop && mainBoard[blackKingXLoc + i][blackKingYLoc - i] -> getType() != whiteQueen){
+                blockedWhiteBishop = true;
+                blockedWhiteQueen = true;
+            }
+            else if (mainBoard[blackKingXLoc + i][blackKingYLoc - i] -> getType() == whiteBishop && !blockedWhiteBishop) blackKingCheckMate = true;
+            else if (mainBoard[blackKingXLoc + i][blackKingYLoc - i] -> getType() == whiteQueen && !blockedWhiteQueen) blackKingCheckMate = true;
+        }
+    }
+
+    blockedWhiteBishop = false;
+    blockedWhiteQueen = false;
+    for (int i = 1; i < boardSize; i++){
+        if (blackKingXLoc - i >= 0 && blackKingYLoc + i < boardSize){
+            if (mainBoard[blackKingXLoc - i][blackKingYLoc + i] -> getType() != emptyOne && mainBoard[blackKingXLoc - i][blackKingYLoc + i] -> getType() != emptyTwo && mainBoard[blackKingXLoc - i][blackKingYLoc + i] -> getType() != whiteBishop && mainBoard[blackKingXLoc - i][blackKingYLoc + i] -> getType() != whiteQueen){
+                blockedWhiteBishop = true;
+                blockedWhiteQueen = true;
+            }
+            else if (mainBoard[blackKingXLoc - i][blackKingYLoc + i] -> getType() == whiteBishop && !blockedWhiteBishop) blackKingCheckMate = true;
+            else if (mainBoard[blackKingXLoc - i][blackKingYLoc + i] -> getType() == whiteQueen && !blockedWhiteQueen) blackKingCheckMate = true;
+        }
+    }
+
+    blockedWhiteBishop = false;
+    blockedWhiteQueen = false;
+    for (int i = 1; i < boardSize; i++){
+        if (blackKingXLoc - i >= 0 && blackKingYLoc - i >= 0){
+            if (mainBoard[blackKingXLoc - i][blackKingYLoc - i] -> getType() != emptyOne && mainBoard[blackKingXLoc - i][blackKingYLoc - i] -> getType() != emptyTwo && mainBoard[blackKingXLoc - i][blackKingYLoc - i] -> getType() != whiteBishop && mainBoard[blackKingXLoc - i][blackKingYLoc - i] -> getType() != whiteQueen){
+                blockedWhiteBishop = true;
+                blockedWhiteQueen = true;
+            }
+            else if (mainBoard[blackKingXLoc - i][blackKingYLoc - i] -> getType() == whiteBishop && !blockedWhiteBishop) blackKingCheckMate = true;
+            else if (mainBoard[blackKingXLoc - i][blackKingYLoc - i] -> getType() == whiteQueen && !blockedWhiteQueen) blackKingCheckMate = true;
+        }
+    }
+
+    // Check For Knight
+    if (blackKingXLoc + 1 < boardSize && blackKingYLoc + 2 < boardSize){
+        if (mainBoard[blackKingXLoc + 1][blackKingYLoc + 2] -> getType() == whiteKnight) blackKingCheckMate = true;
+    }
+    if (blackKingXLoc + 2 < boardSize && blackKingYLoc + 1 < boardSize){
+        if (mainBoard[blackKingXLoc + 2][blackKingYLoc + 1] -> getType() == whiteKnight) blackKingCheckMate = true;
+    }
+    if (blackKingXLoc + 1 < boardSize && blackKingYLoc - 2 >= 0){
+        if (mainBoard[blackKingXLoc + 1][blackKingYLoc - 2] -> getType() == whiteKnight) blackKingCheckMate = true;
+    }
+    if (blackKingXLoc + 2 < boardSize && blackKingYLoc - 1 >= 0){
+        if (mainBoard[blackKingXLoc + 2][blackKingYLoc - 1] -> getType() == whiteKnight) blackKingCheckMate = true;
+    }
+    if (blackKingXLoc - 1 >= 0 && blackKingYLoc + 2 < boardSize){
+        if (mainBoard[blackKingXLoc - 1][blackKingYLoc + 2] -> getType() == whiteKnight) blackKingCheckMate = true;
+    }
+    if (blackKingXLoc - 2 >= 0 && blackKingYLoc + 1 < boardSize){
+        if (mainBoard[blackKingXLoc - 2][blackKingYLoc + 1] -> getType() == whiteKnight) blackKingCheckMate = true;
+    }
+    if (blackKingXLoc - 1 >= 0 && blackKingYLoc - 2 >= 0){
+        if (mainBoard[blackKingXLoc - 1][blackKingYLoc - 2] -> getType() == whiteKnight) blackKingCheckMate = true;
+    }
+    if (blackKingXLoc - 2 >= 0 && blackKingYLoc - 1 >= 0){
+        if (mainBoard[blackKingXLoc - 2][blackKingYLoc - 1] -> getType() == whiteKnight) blackKingCheckMate = true;
+    }
+
+    // Output For White King Being CheckMate
+    if (whiteKingCheckMate) cout << "\033[33mWhite King Has Been CheckMate By Black\033[0m" << endl;
+
+    // Output For Black King Being CheckMate
+    if (blackKingCheckMate) cout << "\033[33mBlack King Has Been CheckMate By White\033[0m" << endl;
 }
