@@ -164,7 +164,7 @@ int main(){
             vector <int> next;
             
             // Getting Input From stringstream
-            lineStream >> originalPosition >> nextPosition >> pawnUpgrade;
+            lineStream >> originalPosition >> nextPosition >> pawnUpgrade >> temp;
 
             // Verify Input
             if (temp != "") extraInput = true;
@@ -204,8 +204,9 @@ int main(){
                 nextxLoc = 8 - (nextPosition[1] - '0'); // Row Number
 
                 // Pawn Upgrade
+                if (pawnInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() != whitePawn && mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() != blackPawn) {validInput = false; moveValid = false; pawnInput = false; cout << "\033[31mNot a Pawn\033[0m" << endl;}
                 if (pawnInput){
-                    if (pawnUpgrade[0] != whiteQueen && pawnUpgrade[0] != whiteBishop && pawnUpgrade[0] != whiteRook && pawnUpgrade[0] != whiteKnight && pawnUpgrade[0] != blackQueen && pawnUpgrade[0] != blackBishop && pawnUpgrade[0] != blackRook && pawnUpgrade[0] != blackKnight) {validInput = false; moveValid = false; cout << "\033[31mInvalid Input For Upgrade\033[0m" << endl;}
+                    if (pawnUpgrade[0] != whiteQueen && pawnUpgrade[0] != whiteBishop && pawnUpgrade[0] != whiteRook && pawnUpgrade[0] != whiteKnight && pawnUpgrade[0] != blackQueen && pawnUpgrade[0] != blackBishop && pawnUpgrade[0] != blackRook && pawnUpgrade[0] != blackKnight) {validInput = false; moveValid = false; pawnInput = false; cout << "\033[31mInvalid Input For Upgrade\033[0m" << endl;}
                 }
 
                 // Testing Use
