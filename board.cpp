@@ -169,3 +169,19 @@ bool Board::checkWin(){
     else if (blackWin) {cout << "Black Won!!!" << endl; return true;}
     else return false;
 }
+
+void Board::checkMate(){
+    int whiteKingXLoc;
+    int whiteKingYLoc;
+    int blackKingXLoc;
+    int blackKingYLoc;
+    for (int i = 0; i < boardSize; i++){
+        for (int j = 0; j < boardSize; j++){
+            if (mainBoard[i][j] -> getType() == whiteKing) {whiteKingXLoc = i; whiteKingYLoc = j;}
+            else if (mainBoard[i][j] -> getType() == blackKing) {blackKingXLoc = i; blackKingYLoc = j;}
+        }
+    }
+
+    
+
+}

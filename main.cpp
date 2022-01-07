@@ -501,6 +501,9 @@ int main(){
         // Check if Game Over Or Not
         if (mainBoard.checkWin()) break;
 
+        // Check For CheckMates
+        mainBoard.checkMate();
+
         // Draw the Board
         mainBoard.draw();
 

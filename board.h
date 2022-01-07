@@ -30,6 +30,7 @@ class Board{
         void conquerMove(vector <int> original, vector <int> next);
         void upgradePawn(vector <int> original, vector <int> next, char upgradeType);
         bool checkWin();
+        void checkMate();
 };
 
 #endif
