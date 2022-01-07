@@ -208,6 +208,10 @@ int main(){
                 if (pawnInput){
                     if (pawnUpgrade[0] != whiteQueen && pawnUpgrade[0] != whiteBishop && pawnUpgrade[0] != whiteRook && pawnUpgrade[0] != whiteKnight && pawnUpgrade[0] != blackQueen && pawnUpgrade[0] != blackBishop && pawnUpgrade[0] != blackRook && pawnUpgrade[0] != blackKnight) {validInput = false; moveValid = false; pawnInput = false; cout << "\033[31mInvalid Input For Upgrade\033[0m" << endl;}
                 }
+                if (pawnInput){
+                    if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() >= 65 && mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() <= 90 && (pawnUpgrade[0] < 65 || pawnUpgrade[0] > 90)) {validInput = false; moveValid = false; pawnInput = false; cout << "\033[31mYou Are Trying to Upgrade to Opponent Piece\033[0m" << endl;}
+                    else if (mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() >= 97 && mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() <= 122 && (pawnUpgrade[0] < 97 || pawnUpgrade[0] > 122)) {validInput = false; moveValid = false; pawnInput = false; cout << "\033[31mYou Are Trying to Upgrade to Opponent Piece\033[0m" << endl;}
+                }
 
                 // Testing Use
                 /*
