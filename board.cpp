@@ -169,8 +169,8 @@ bool Board::checkWin(){
     }
 
     // Output To User
-    if (whiteWin) {cout << "White Won!!!" << endl; return true;}
-    else if (blackWin) {cout << "Black Won!!!" << endl; return true;}
+    if (whiteWin) {cout << "\033[35mWhite Won!!!\033[0m" << endl; return true;}
+    else if (blackWin) {cout << "\033[35mBlack Won!!!\033[0m" << endl; return true;}
     else return false;
 }
 
