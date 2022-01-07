@@ -29,6 +29,7 @@ class Board{
         void exchangePosition(vector <int> original, vector <int> next);
         void conquerMove(vector <int> original, vector <int> next);
         void upgradePawn(vector <int> original, vector <int> next, char upgradeType);
+        bool checkWin();
 };
 
 #endif

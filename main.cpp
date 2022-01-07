@@ -498,6 +498,9 @@ int main(){
             else if (currentPlayer == black) currentPlayer = white;
         }
 
+        // Check if Game Over Or Not
+        if (mainBoard.checkWin()) break;
+
         // Draw the Board
         mainBoard.draw();
 

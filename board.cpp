@@ -154,3 +154,18 @@ void Board::upgradePawn(vector <int> original, vector <int> next, char upgradeTy
     else if (original[0] % 2 == 1 && original[1] % 2 == 0) mainBoard[original[0]][original[1]] = new Empty(original[0], original[1], empty, emptyTwo);
     else mainBoard[original[0]][original[1]] = new Empty(original[0], original[1], empty, emptyOne);
 }
+
+bool Board::checkWin(){
+    bool whiteWin = true;
+    bool blackWin = true;
+    for (int i = 0; i < boardSize; i++){
+        for (int j = 0; j < boardSize; j++){
+            if (mainBoard[i][j] -> getType() == whiteKing) blackWin = false;
+            else if (mainBoard[i][j] -> getType() == blackKing) whiteWin = false;
+        }
+    }
+
+    if (whiteWin) {cout << "White Won!!!" << endl; return true;}
+    else if (blackWin) {cout << "Black Won!!!" << endl; return true;}
+    else return false;
+}
