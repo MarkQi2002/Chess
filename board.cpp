@@ -133,3 +133,24 @@ void Board::conquerMove(vector <int> original, vector <int> next){
     else if (original[0] % 2 == 1 && original[1] % 2 == 0) mainBoard[original[0]][original[1]] = new Empty(original[0], original[1], empty, emptyTwo);
     else mainBoard[original[0]][original[1]] = new Empty(original[0], original[1], empty, emptyOne);
 }
+
+void Board::upgradePawn(vector <int> original, vector <int> next, char upgradeType){
+    // Delete Original and Next
+    delete mainBoard[original[0]][original[1]];
+    delete mainBoard[next[0]][next[1]];
+    
+    // Create New Piece
+    if (upgradeType == whiteQueen) mainBoard[next[0]][next[1]] = new Queen(next[0], next[1], white, whiteQueen);
+    else if (upgradeType == whiteBishop) mainBoard[next[0]][next[1]] = new Bishop(next[0], next[1], white, whiteBishop);
+    else if (upgradeType == whiteRook) mainBoard[next[0]][next[1]] = new Rook(next[0], next[1], white, whiteRook);
+    else if (upgradeType == whiteKnight) mainBoard[next[0]][next[1]] = new Knight(next[0], next[1], white, whiteKnight);
+    else if (upgradeType == blackQueen) mainBoard[next[0]][next[1]] = new Queen(next[0], next[1], black, blackQueen);
+    else if (upgradeType == blackBishop) mainBoard[next[0]][next[1]] = new Bishop(next[0], next[1], black, blackBishop);
+    else if (upgradeType == blackRook) mainBoard[next[0]][next[1]] = new Rook(next[0], next[1], black, blackRook);
+    else if (upgradeType == blackKnight) mainBoard[next[0]][next[1]] = new Knight(next[0], next[1], black, blackKnight);
+    
+    // Set Original Location to Empty
+    if (original[0] % 2 == 0 && original[1] % 2 == 1) mainBoard[original[0]][original[1]] = new Empty(original[0], original[1], empty, emptyTwo);
+    else if (original[0] % 2 == 1 && original[1] % 2 == 0) mainBoard[original[0]][original[1]] = new Empty(original[0], original[1], empty, emptyTwo);
+    else mainBoard[original[0]][original[1]] = new Empty(original[0], original[1], empty, emptyOne);
+}

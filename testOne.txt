@@ -1,5 +1,5 @@
 game
 0
 0
-move a7 a1 Q
+move a2 a3 Q
 eof
