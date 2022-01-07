@@ -233,7 +233,7 @@ int main(){
             next.push_back(nextxLoc);
             next.push_back(nextyLoc);
 
-            // ExchangePosition
+            // ExchangePosition For Testing Only
             // mainBoard.exchangePosition(original, next);
 
             // For White
