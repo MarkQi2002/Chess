@@ -32,7 +32,7 @@ int main(){
     ifstream input;
     int count = 0;
     string input_input[2048];
-    input.open("testTwo.txt");
+    input.open("testOne.txt");
 
     for (int i = 0; i < 2048; i++){
         getline(input, input_input[i]);
@@ -627,6 +627,17 @@ int main(){
             getline(cin, line);
         }
         */
+
+       // This Section Is Reserved For AI Implementation
+       // For AI1 (random legal moves)
+       if ((currentPlayer == white && firstPlayer == AI1) || (currentPlayer == black && secondPlayer == AI1)){
+           // Variable Declaration
+       }
+
+       // For AI2 (prefers capturing moves and checks over other moves)
+       if ((currentPlayer == white && firstPlayer == AI2) || (currentPlayer == black && secondPlayer == AI2)){
+           // Variable Declaration
+       }
     }
 
     // Draw the Board For Testing
