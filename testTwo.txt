@@ -1,4 +1,7 @@
+game
+0
+0
 move a2 a4
-move a2 a4
-setup
+move b2 b4
+move a7 a5
 eof

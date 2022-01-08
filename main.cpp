@@ -360,6 +360,8 @@ int main(){
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == black) mainBoard.conquerMove(original, next);
                     else mainBoard.exchangePosition(original, next);
                 }
+
+                else {moveValid = false; cout << "\033[31mYou are Moving a Piece That is Not Yours\033[0m" << endl;}
             }
             // For Black
             else if (currentPlayer == black && validInput){
@@ -484,11 +486,15 @@ int main(){
                     else if (mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() != empty && mainBoard.getBoard(nextxLoc, nextyLoc) -> getColor() == white) mainBoard.conquerMove(original, next);
                     else mainBoard.exchangePosition(original, next);
                 }
+                
+                else {moveValid = false; cout << "\033[31mYou are Moving a Piece That is Not Yours\033[0m" << endl;}
             }
         }
 
         // For Command "setup" (Difficult)
         if (command == "setup" && startGame && !setUpMode){
+            cout << "\033[36mSet Up Mode Entered!\033[0m" << endl;
+
             // Enable SetUp Mode
             setUpMode = true;
 
@@ -614,10 +620,12 @@ int main(){
         // Seek User Input Again
         // Prompt User For Input (Comment This For Testing)
         /*
-        cout << "\033[33mRead PDF for input instructions\033[0m" << endl;
-        cout << "\033[36mCurrent Player: " << currentPlayer << "\033[0m" << endl;
-        cout << "> ";
-        getline(cin, line);
+        if ((currentPlayer == white && firstPlayer == Player) || (currentPlayer == black && secondPlayer == Player)){
+            cout << "\033[33mRead PDF for input instructions\033[0m" << endl;
+            cout << "\033[36mCurrent Player: " << currentPlayer << "\033[0m" << endl;
+            cout << "> ";
+            getline(cin, line);
+        }
         */
     }
 
