@@ -31,6 +31,12 @@ class Board{
         void upgradePawn(vector <int> original, vector <int> next, char upgradeType);
         bool checkWin();
         void checkMate();
+
+        // For SetUp Mode
+        void clearBoard();
+        void addPiece(int row, int col, char type);
+        void removePiece(int row, int col);
+        void checkKing(bool & setUpMode);
 };
 
 #endif

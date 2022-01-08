@@ -449,3 +449,83 @@ void Board::checkMate(){
     // Output For Black King Being CheckMate
     if (blackKingCheckMate) cout << "\033[33mBlack King Has Been CheckMate By White\033[0m" << endl;
 }
+
+// For SetUp Mode
+void Board::clearBoard(){
+    // Delete The Original Board
+    for (int i = 0; i < boardSize; i++){
+        for (int j = 0; j < boardSize; j++){
+            delete mainBoard[i][j];
+        }
+    }
+
+    // Make The Entire Board Filled With Empty
+    for (int i = 0; i < boardSize; i++){
+        for (int j = 0; j < boardSize; j++){
+            if (i % 2 == 0 && j % 2 == 1) mainBoard[i][j] = new Empty(i, j, empty, emptyTwo);
+            else if (i % 2 == 1 && j % 2 == 0) mainBoard[i][j] = new Empty(i, j, empty, emptyTwo);
+            else mainBoard[i][j] = new Empty(i, j, empty, emptyOne);
+        }
+    }
+}
+
+void Board::addPiece(int row, int col, char type){
+    // Variable Declaration
+    bool whiteKingExist = false;
+    bool blackKingExist = false;
+
+    // Check For King
+    for (int i = 0; i < boardSize; i++){
+        for (int j = 0; j < boardSize; j++){
+            if (mainBoard[i][j] -> getType() == whiteKing) whiteKingExist = true;
+            else if (mainBoard[i][j] -> getType() == blackKing) blackKingExist = true;
+        }
+    }
+
+    // Delete Original Piece
+    delete mainBoard[row][col];
+    
+    // Create New Piece
+    if (type == whiteKing && !whiteKingExist) mainBoard[row][col] = new King(row, col, white, whiteKing);
+    else if (type == whiteKing && whiteKingExist) cout << "\033[31mWhite King Already Exists\033[0m" << endl;
+    else if (type == whiteQueen) mainBoard[row][col] = new Queen(row, col, white, whiteQueen);
+    else if (type == whiteBishop) mainBoard[row][col] = new Bishop(row, col, white, whiteBishop);
+    else if (type == whiteRook) mainBoard[row][col] = new Rook(row, col, white, whiteRook);
+    else if (type == whiteKnight) mainBoard[row][col] = new Knight(row, col, white, whiteKnight);
+    else if (type == whitePawn) mainBoard[row][col] = new Pawn(row, col, white, whitePawn);
+   
+    else if (type == blackKing && !blackKingExist) mainBoard[row][col] = new King(row, col, black, blackKing);
+    else if (type == blackKing && blackKingExist) cout << "\033[31mBlack King Already Exists\033[0m" << endl;
+    else if (type == blackQueen) mainBoard[row][col] = new Queen(row, col, black, blackQueen);
+    else if (type == blackBishop) mainBoard[row][col] = new Bishop(row, col, black, blackBishop);
+    else if (type == blackRook) mainBoard[row][col] = new Rook(row, col, black, blackRook);
+    else if (type == blackKnight) mainBoard[row][col] = new Knight(row, col, black, blackKnight);
+    else if (type == blackPawn) mainBoard[row][col] = new Pawn(row, col, black, blackPawn);
+}
+
+void Board::removePiece(int row, int col){
+    // Delete the Piece
+    delete mainBoard[row][col];
+
+    // Set Position to Empty
+    if (row % 2 == 0 && col % 2 == 1) mainBoard[row][col] = new Empty(row, col, empty, emptyTwo);
+    else if (row % 2 == 1 && col % 2 == 0) mainBoard[row][col] = new Empty(row, col, empty, emptyTwo);
+    else mainBoard[row][col] = new Empty(row, col, empty, emptyOne);
+}
+
+void Board::checkKing(bool & setUpMode){
+    // Variable Declaration
+    bool whiteKingExist = false;
+    bool blackKingExist = false;
+
+    // Check For King
+    for (int i = 0; i < boardSize; i++){
+        for (int j = 0; j < boardSize; j++){
+            if (mainBoard[i][j] -> getType() == whiteKing) whiteKingExist = true;
+            else if (mainBoard[i][j] -> getType() == blackKing) blackKingExist = true;
+        }
+    }
+
+    if (!whiteKingExist || !blackKingExist) {setUpMode = true; cout << "\033[31mAt Least One King is Missing, Set Up Mode Continues\033[0m" << endl;}
+    else {setUpMode = false; cout << "\033[35mSet Up Complete!\033[0m" << endl;}
+}

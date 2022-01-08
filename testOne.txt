@@ -44,5 +44,4 @@ move g8 h7
 move g3 g6
 move h7 g6
 move h5 g6
-move
 eof

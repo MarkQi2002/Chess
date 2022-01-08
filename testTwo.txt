@@ -1,0 +1,4 @@
+move a2 a4
+move a2 a4
+setup
+eof

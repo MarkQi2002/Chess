@@ -32,7 +32,7 @@ int main(){
     ifstream input;
     int count = 0;
     string input_input[2048];
-    input.open("testOne.txt");
+    input.open("testTwo.txt");
 
     for (int i = 0; i < 2048; i++){
         getline(input, input_input[i]);
@@ -188,9 +188,9 @@ int main(){
                 else if (originalPosition[0] == 'f') originalyLoc = 5;
                 else if (originalPosition[0] == 'g') originalyLoc = 6;
                 else if (originalPosition[0] == 'h') originalyLoc = 7;
-
+                
                 originalxLoc = 8 - (originalPosition[1] - '0'); // Row Number
-
+                
                 // Next Position
                 if (nextPosition[0] == 'a') nextyLoc = 0;
                 else if (nextPosition[0] == 'b') nextyLoc = 1;
@@ -200,9 +200,9 @@ int main(){
                 else if (nextPosition[0] == 'f') nextyLoc = 5;
                 else if (nextPosition[0] == 'g') nextyLoc = 6;
                 else if (nextPosition[0] == 'h') nextyLoc = 7;
-
+                
                 nextxLoc = 8 - (nextPosition[1] - '0'); // Row Number
-
+                
                 // Pawn Upgrade Checking
                 if (pawnInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() != whitePawn && mainBoard.getBoard(originalxLoc, originalyLoc) -> getType() != blackPawn) {validInput = false; moveValid = false; pawnInput = false; cout << "\033[31mNot a Pawn\033[0m" << endl;}
                 if (pawnInput){
@@ -221,11 +221,12 @@ int main(){
                 cout << "Next Column Number: " << nextyLoc << endl;
                 */
             }
+            
             // Check On Board or Not
-            if (originalxLoc < 0 || originalxLoc > 7 || originalyLoc < 0 || originalyLoc > 7 || nextxLoc < 0 || nextxLoc > 7 || nextyLoc < 0 || nextyLoc > 7) {moveValid = false; cout << "\033[31mLocation Outside Board\033[0m" << endl;}
+            if (originalxLoc < 0 || originalxLoc > 7 || originalyLoc < 0 || originalyLoc > 7 || nextxLoc < 0 || nextxLoc > 7 || nextyLoc < 0 || nextyLoc > 7) {validInput = false; moveValid = false; cout << "\033[31mLocation Outside Board\033[0m" << endl;}
 
             // Check If Original Location if Empty or Not
-            if (validInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getColor() == empty) {moveValid = false; cout << "\033[31mOriginal Location Empty\033[0m" << endl;}
+            if (validInput && mainBoard.getBoard(originalxLoc, originalyLoc) -> getColor() == empty) {validInput = false; moveValid = false; cout << "\033[31mOriginal Location Empty\033[0m" << endl;}
 
             // Setting Variables
             original.push_back(originalxLoc);
@@ -487,9 +488,112 @@ int main(){
         }
 
         // For Command "setup" (Difficult)
-        if (command == "setup" && !startGame && !setUpMode){
+        if (command == "setup" && startGame && !setUpMode){
             // Enable SetUp Mode
             setUpMode = true;
+
+            // Clear The Board
+            mainBoard.clearBoard();
+            cout << "\033[34mThe Cleared Board Is Drawn Below\033[0m" << endl;
+            mainBoard.draw();
+
+            while (setUpMode){
+                // Variable Declaration
+                string setUpLine;
+                string setUpCommand;
+                string addedType;
+                string position;
+                string nextTurn;
+                string temp;
+                int xPosition;
+                int yPosition;
+                bool validInput = true;
+
+                // Prompt User For Input
+                cout << "\033[33mRead PDF for input instructions (Set Up)\033[0m" << endl;
+                cout << "> ";
+                getline(cin, setUpLine);
+
+                // Analyze Input
+                stringstream setUpStream(setUpLine);
+
+                // Get Command
+                setUpStream >> setUpCommand;
+
+                // Check Command
+                if (setUpCommand != "+" && setUpCommand != "-" && setUpCommand != "=" && setUpCommand != "done"){
+                    cout << "\033[31mInvalid Input For Set Up\033[0m" << endl;
+                }
+
+                // For Command +
+                if (setUpCommand == "+"){
+                    setUpStream >> addedType >> position >> temp;
+                    if (addedType.length() != 1 || position.length() != 2 || temp != "") {cout << "\033[31mInvalid Input For Adding a Piece\033[0m" << endl; validInput = false;}
+                    if (addedType[0] != whiteKing && addedType[0] != whiteQueen && addedType[0] != whiteBishop && addedType[0] != whiteRook && addedType[0] != whiteKnight && addedType[0] != whitePawn && addedType[0] != blackKing && addedType[0] != blackQueen && addedType[0] != blackBishop && addedType[0] != blackRook && addedType[0] != blackKnight && addedType[0] != blackPawn) {cout << "\033[31mInvalid Input For Added Piece Type\033[0m" << endl; validInput = false;}
+
+                    // Position
+                    if (position[0] == 'a') yPosition = 0;
+                    else if (position[0] == 'b') yPosition = 1;
+                    else if (position[0] == 'c') yPosition = 2;
+                    else if (position[0] == 'd') yPosition = 3;
+                    else if (position[0] == 'e') yPosition = 4;
+                    else if (position[0] == 'f') yPosition = 5;
+                    else if (position[0] == 'g') yPosition = 6;
+                    else if (position[0] == 'h') yPosition = 7;
+
+                    xPosition = 8 - (position[1] - '0'); // Row Number
+
+                    // Check if Position Outside Or Not
+                    if (xPosition < 0 || xPosition > 7 || yPosition < 0 || yPosition > 7) {validInput = false; cout << "\033[31mLocation Outside Board\033[0m" << endl;}
+
+                    if (validInput){
+                        mainBoard.addPiece(xPosition, yPosition, addedType[0]);
+                    }
+                }
+
+                // For Command -
+                if (setUpCommand == "-"){
+                    setUpStream >> position >> temp;
+                    if (position.length() != 2 || temp != "") {cout << "\033[31mInvalid Input For Removing a Piece\033[0m" << endl; validInput = false;}
+                    
+                    // Position
+                    if (position[0] == 'a') yPosition = 0;
+                    else if (position[0] == 'b') yPosition = 1;
+                    else if (position[0] == 'c') yPosition = 2;
+                    else if (position[0] == 'd') yPosition = 3;
+                    else if (position[0] == 'e') yPosition = 4;
+                    else if (position[0] == 'f') yPosition = 5;
+                    else if (position[0] == 'g') yPosition = 6;
+                    else if (position[0] == 'h') yPosition = 7;
+
+                    xPosition = 8 - (position[1] - '0'); // Row Number
+
+                    // Check if Position Outside Or Not
+                    if (xPosition < 0 || xPosition > 7 || yPosition < 0 || yPosition > 7) {validInput = false; cout << "\033[31mLocation Outside Board\033[0m" << endl;}
+
+                    if (validInput){
+                        mainBoard.removePiece(xPosition, yPosition);
+                    }
+                }
+                
+                // For Command =
+                if (setUpCommand == "="){
+                    setUpStream >> nextTurn >> temp;
+                    if (nextTurn != white && nextTurn != black) {cout << "\033[31mInvalid Input For Next Turn's Colour\033[0m" << endl; validInput = false;}
+                    else if (temp != "") {cout << "\033[31mToo Many Arguments\033[0m" << endl; validInput = false;}
+                    
+                    if (validInput) currentPlayer = nextTurn;
+                }
+                
+                // For Command done
+                if (setUpCommand == "done"){
+                    mainBoard.checkKing(setUpMode);
+                }
+
+                // Draw Updated Board
+                cout << "\033[34mThe New Board Is Drawn Below\033[0m" << endl;
+                mainBoard.draw();
+            }
         }
 
         // Switching Turns if Move is Valid
